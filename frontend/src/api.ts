@@ -190,6 +190,12 @@ async function detail(res: Response): Promise<string> {
   }
 }
 
+async function loadDemoRows(): Promise<CohortRow[]> {
+  const demo = await fetch('/demo-cohort.json');
+  if (!demo.ok) throw new Error('demo cohort unavailable');
+  return demo.json();
+}
+
 export async function getCohort(): Promise<CohortRow[]> {
   // The public demo is static by design. Only a separately hosted backend
   // opts into the live route; Vercel never probes its own SPA rewrite.
@@ -205,9 +211,7 @@ export async function getCohort(): Promise<CohortRow[]> {
       // The public watchlist remains usable without the optional API.
     }
   }
-  const demo = await fetch('/demo-cohort.json');
-  if (!demo.ok) throw new Error('demo cohort unavailable');
-  return demo.json();
+  return loadDemoRows();
 }
 
 // --- the real five-agent ADK loop (Scout -> Arbiter -> fan-out) ----------------
@@ -439,15 +443,56 @@ export interface ResolvedVariant {
 }
 
 export async function getPedigree(patientId: string): Promise<Pedigree> {
-  const res = await fetch(`${BASE}/pedigree?patient=${encodeURIComponent(patientId)}`);
-  if (!res.ok) throw new Error(await detail(res));
-  return res.json();
+  if (API_ROOT) {
+    try {
+      const res = await fetch(`${BASE}/pedigree?patient=${encodeURIComponent(patientId)}`);
+      if (res.ok && (res.headers.get('content-type') || '').includes('application/json')) return res.json();
+    } catch { /* use the public demo fixture below */ }
+  }
+  const rows = await loadDemoRows();
+  const row = rows.find((item) => item.patient_id === patientId) || rows.find((item) => item.reclassified) || rows[0];
+  if (!row) throw new Error('demo cohort unavailable');
+  const first = row.patient_name.split(' ')[0] || 'Patient';
+  const members: PedigreeMember[] = [
+    { id: row.patient_id, name: row.patient_name, relationship: 'proband', deceased: row.deceased, carrier: true, recorded_classification: row.current_class, email: 'clinic@example.com', phone: null, recontact_status: 'on file' },
+    { id: `${row.patient_id}-sibling`, name: `${first}'s sibling`, relationship: 'sibling', deceased: false, carrier: false, recorded_classification: null, email: 'relative@example.com', phone: null, recontact_status: 'not contacted' },
+    { id: `${row.patient_id}-child`, name: `${first}'s child`, relationship: 'child', deceased: false, carrier: false, recorded_classification: null, email: null, phone: null, recontact_status: 'no route' },
+  ];
+  return {
+    proband_id: row.patient_id,
+    members,
+    history: [{ relationship: 'first-degree relative', deceased: false, condition: 'synthetic family history' }],
+    needs_contact: members.filter((member) => member.relationship !== 'proband'),
+  };
 }
 
 export async function getGraph(patientId: string): Promise<Graph> {
-  const res = await fetch(`${BASE}/graph?patient=${encodeURIComponent(patientId)}`);
-  if (!res.ok) throw new Error(await detail(res));
-  return res.json();
+  if (API_ROOT) {
+    try {
+      const res = await fetch(`${BASE}/graph?patient=${encodeURIComponent(patientId)}`);
+      if (res.ok && (res.headers.get('content-type') || '').includes('application/json')) return res.json();
+    } catch { /* use the public demo fixture below */ }
+  }
+  const rows = await loadDemoRows();
+  const row = rows.find((item) => item.patient_id === patientId) || rows.find((item) => item.reclassified) || rows[0];
+  if (!row) throw new Error('demo cohort unavailable');
+  const variant = `${row.gene} ${row.hgvs_c}`;
+  const nodes: GraphNode[] = [
+    { id: 'variant', label: variant, type: 'variant', meta: `${row.current_class} (${row.review_stars}★)`, size: 2, detail: `Posterior ${row.posterior.toFixed(2)} (${row.band}).` },
+    { id: 'gene', label: row.gene, type: 'gene', meta: 'gene studied' },
+    { id: 'clinvar', label: 'ClinVar', type: 'source', meta: 'public evidence commons' },
+    { id: 'gnomad', label: 'gnomAD', type: 'source', meta: 'population frequency' },
+    { id: 'acmg', label: 'ACMG posterior', type: 'verdict', meta: `${row.posterior.toFixed(2)} · ${row.band}` },
+    { id: 'family', label: 'Kinship pathway', type: 'relative', meta: 'clinician-gated recontact' },
+  ];
+  const edges: GraphEdge[] = [
+    { source: 'variant', target: 'gene', weight: 1.2, label: 'located in' },
+    { source: 'variant', target: 'clinvar', weight: 1, label: 'reviewed by' },
+    { source: 'variant', target: 'gnomad', weight: 0.8, label: 'frequency' },
+    { source: 'variant', target: 'acmg', weight: 1.3, label: 'scored as' },
+    { source: 'variant', target: 'family', weight: row.reclassified ? 1.2 : 0.5, label: 'routes to' },
+  ];
+  return { nodes, edges };
 }
 
 export async function addPatient(payload: NewPatientPayload): Promise<{ patient_id: string; ok: boolean; resolved?: ResolvedVariant | null }> {

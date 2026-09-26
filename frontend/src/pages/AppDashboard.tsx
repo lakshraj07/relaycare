@@ -261,7 +261,7 @@ export default function AppDashboard() {
   const flagged = cohort?.filter((r) => r.reclassified) ?? [];
   const escalations = flagged.filter((r) => r.direction === 'escalation');
   const maxSilent = Math.max(0, ...(cohort ?? []).map((r) => yearsSince(r.recorded_date) ?? 0));
-  const pid = sel?.patient_id ?? 'diane-marchetti';
+  const pid = sel?.patient_id ?? cohort?.[0]?.patient_id ?? 'diane-marchetti';
   const refreshCohort = () => {
     getCohort().then(setCohort).catch(() => {});
     getOnboardStatus().then(setOnboardStatus).catch(() => {});
