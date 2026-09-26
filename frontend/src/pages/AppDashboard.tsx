@@ -688,7 +688,7 @@ function ExplorerView({ feeds, events, resyncing, pausing, onResync, onPause, on
   return (
     <div style={{ display: 'grid', gap: '1rem' }}>
       <ViewIntro icon={Server} title="Data explorer · Fivetran + BigQuery"
-        body="The evidence commons, kept fresh in BigQuery by Fivetran. Check connector health and run targeted re-syncs, pauses and resumes through the Fivetran MCP server (CRUD on live connectors)." />
+        body="RelayCare syncs public evidence from ClinVar, gnomAD and AlphaMissense into a curated BigQuery view. This tab shows connector health and gene onboarding. On the public demo, a synthetic snapshot keeps the explorer usable when the optional warehouse backend is not connected." />
 
       {warehouse && (
         <div style={card}>

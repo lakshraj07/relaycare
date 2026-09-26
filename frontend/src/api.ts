@@ -89,19 +89,34 @@ export interface CohortRow {
 
 export interface WarehouseInfo { view: string; sources: string[]; query: string; variant_count?: number | null; }
 export async function getWarehouseInfo(): Promise<WarehouseInfo> {
-  const res = await fetch(`${BASE}/warehouse`);
-  if (!res.ok) throw new Error(await detail(res));
-  return res.json();
+  if (!API_ROOT) return DEMO_WAREHOUSE;
+  try {
+    const res = await fetch(`${BASE}/warehouse`);
+    if (!res.ok) throw new Error(await detail(res));
+    const data = await res.json();
+    if (data?.view && Array.isArray(data.sources)) return data;
+  } catch {
+    // The public walkthrough uses a clearly labelled synthetic snapshot.
+  }
+  return DEMO_WAREHOUSE;
 }
 
 export interface AuditLogEvent { category: string; text: string; tone?: string; actor?: string; ts_ms?: number; }
 export async function getAuditLog(limit = 100): Promise<{ events: AuditLogEvent[] }> {
-  const res = await fetch(`${BASE}/audit?limit=${limit}`);
-  if (!res.ok) throw new Error(await detail(res));
-  return res.json();
+  if (!API_ROOT) return { events: DEMO_AUDIT.slice(0, limit) };
+  try {
+    const res = await fetch(`${BASE}/audit?limit=${limit}`);
+    if (!res.ok) throw new Error(await detail(res));
+    const data = await res.json();
+    if (Array.isArray(data.events)) return data;
+  } catch {
+    // Keep the audit tab useful when the optional backend is unavailable.
+  }
+  return { events: DEMO_AUDIT.slice(0, limit) };
 }
 
 export async function approveCase(patient: string, action = 'recontact'): Promise<{ ok: boolean }> {
+  if (!API_ROOT) return { ok: true };
   const res = await fetch(`${BASE}/approve?patient=${encodeURIComponent(patient)}&action=${encodeURIComponent(action)}`, { method: 'POST' });
   if (!res.ok) throw new Error(await detail(res));
   return res.json();
@@ -291,18 +306,27 @@ export interface Feed {
 }
 
 export async function getFreshness(): Promise<Feed[]> {
-  const res = await fetch(`${BASE}/freshness`);
-  if (!res.ok) throw new Error(await detail(res));
-  return (await res.json()).feeds;
+  if (!API_ROOT) return DEMO_FEEDS;
+  try {
+    const res = await fetch(`${BASE}/freshness`);
+    if (!res.ok) throw new Error(await detail(res));
+    const data = await res.json();
+    if (Array.isArray(data.feeds)) return data.feeds;
+  } catch {
+    // The public walkthrough falls back to the synthetic connector snapshot.
+  }
+  return DEMO_FEEDS;
 }
 
 export async function resync(connectionId: string): Promise<{ code?: string; message?: string }> {
+  if (!API_ROOT) return { code: 'demo', message: `Demo re-sync queued for ${connectionId}` };
   const res = await fetch(`${BASE}/resync?connection_id=${encodeURIComponent(connectionId)}`, { method: 'POST' });
   if (!res.ok) throw new Error(await detail(res));
   return res.json();
 }
 
 export async function pauseConnector(connectionId: string, paused: boolean): Promise<{ ok: boolean; paused: boolean }> {
+  if (!API_ROOT) return { ok: true, paused };
   const res = await fetch(`${BASE}/fivetran/pause?connection_id=${encodeURIComponent(connectionId)}&paused=${paused}`, { method: 'POST' });
   if (!res.ok) throw new Error(await detail(res));
   return res.json();
@@ -314,13 +338,53 @@ export interface OnboardGeneRow {
 }
 export interface OnboardStatus { genes: OnboardGeneRow[]; threshold: number; }
 
+// The public Vercel app has no private warehouse credentials. These fixtures
+// keep the explorer useful while making the demo state explicit and synthetic.
+export const PUBLIC_DEMO_MODE = !API_ROOT;
+const DEMO_WAREHOUSE: WarehouseInfo = {
+  view: 'relaycare_demo.variant_evidence',
+  sources: ['relaycare_demo.clinvar', 'relaycare_demo.gnomad', 'relaycare_demo.alphamissense'],
+  query: 'SELECT * FROM relaycare_demo.variant_evidence WHERE gene_symbol = @gene',
+  variant_count: 31870,
+};
+const DEMO_FEEDS: Feed[] = [
+  { schema: 'clinvar', connection_id: 'demo-clinvar', service: 'ClinVar', sync_state: 'synced', succeeded_at: null, hours_old: 2, is_stale: false, paused: false, setup_state: 'connected' },
+  { schema: 'gnomad', connection_id: 'demo-gnomad', service: 'gnomAD', sync_state: 'synced', succeeded_at: null, hours_old: 3, is_stale: false, paused: false, setup_state: 'connected' },
+  { schema: 'alphamissense', connection_id: 'demo-alphamissense', service: 'AlphaMissense', sync_state: 'synced', succeeded_at: null, hours_old: 4, is_stale: false, paused: false, setup_state: 'connected' },
+];
+const DEMO_ONBOARD: OnboardStatus = {
+  threshold: 3,
+  genes: [
+    { gene: 'MLH1', count: 0, onboarded: true, connection_id: 'demo-mlh1', schema: 'clinvar_mlh1', n_variants: 6420, recommended: false },
+    { gene: 'MSH2', count: 0, onboarded: true, connection_id: 'demo-msh2', schema: 'clinvar_msh2', n_variants: 7010, recommended: false },
+    { gene: 'BRCA1', count: 2, onboarded: false, connection_id: null, schema: null, n_variants: null, recommended: false },
+    { gene: 'TP53', count: 3, onboarded: false, connection_id: null, schema: null, n_variants: null, recommended: true },
+  ],
+};
+const DEMO_AUDIT: AuditLogEvent[] = [
+  { category: 'fivetran', text: 'Demo snapshot loaded for ClinVar, gnomAD and AlphaMissense', tone: 'info' },
+  { category: 'agent', text: 'Arbiter held a low-confidence evidence change for clinician review', tone: 'warn' },
+  { category: 'approval', text: 'Synthetic recontact draft approved in the walkthrough', tone: 'ok' },
+];
+
 export async function getOnboardStatus(): Promise<OnboardStatus> {
-  const res = await fetch(`${BASE}/onboard/status`);
-  if (!res.ok) throw new Error(await detail(res));
-  return res.json();
+  if (!API_ROOT) return DEMO_ONBOARD;
+  try {
+    const res = await fetch(`${BASE}/onboard/status`);
+    if (!res.ok) throw new Error(await detail(res));
+    const data = await res.json();
+    if (Array.isArray(data.genes)) return data;
+  } catch {
+    // The public walkthrough falls back to the synthetic onboarding snapshot.
+  }
+  return DEMO_ONBOARD;
 }
 
 export async function onboardGene(gene: string): Promise<{ ok: boolean; gene: string; connection_id: string; schema: string; n_variants: number }> {
+  if (!API_ROOT) {
+    const normalized = gene.toUpperCase();
+    return { ok: true, gene: normalized, connection_id: `demo-${normalized.toLowerCase()}`, schema: `demo_${normalized.toLowerCase()}`, n_variants: 1200 };
+  }
   const res = await fetch(`${BASE}/onboard?gene=${encodeURIComponent(gene)}`, { method: 'POST' });
   if (!res.ok) throw new Error(await detail(res));
   return res.json();
