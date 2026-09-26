@@ -1,0 +1,1 @@
+# gnomAD connector uses only the Python standard library (urllib, json).

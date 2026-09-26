@@ -1,0 +1,13 @@
+# keep the Cloud Run source upload small (gcloud ignores .dockerignore, so mirror it here)
+.venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+_staging/
+tests/
+eval/
+.pytest_cache/
+.env
+hello.py
+*.output
+out/

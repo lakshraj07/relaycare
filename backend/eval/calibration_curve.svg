@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="320" font-family="system-ui,sans-serif">
+<rect width="420" height="320" fill="#ffffff"/>
+<line x1="46" y1="274" x2="374" y2="274" stroke="#9aa3b2"/>
+<line x1="46" y1="46" x2="46" y2="274" stroke="#9aa3b2"/>
+<line x1="46" y1="68.8" x2="374" y2="68.8" stroke="#c8362b" stroke-dasharray="4 4" stroke-width="1"/>
+<text x="374" y="64.8" font-size="9" fill="#c8362b" text-anchor="end">LP line 0.90 (6 pts)</text>
+<text x="210.0" y="308" font-size="11" fill="#5b6576" text-anchor="middle">ACMG points</text>
+<text x="14" y="160.0" font-size="11" fill="#5b6576" text-anchor="middle" transform="rotate(-90 14 160.0)">posterior P(pathogenic)</text>
+<text x="177" y="289" font-size="9" fill="#97a0b0" text-anchor="middle">0</text>
+<text x="308" y="289" font-size="9" fill="#97a0b0" text-anchor="middle">+8</text>
+<text x="46" y="289" font-size="9" fill="#97a0b0" text-anchor="middle">-8</text>
+<polyline points="46.0,273.9 62.4,273.8 78.8,273.7 95.2,273.4 111.6,272.7 128.0,271.2 144.4,268.3 160.8,262.4 177.2,251.2 193.6,231.2 210.0,200.0 226.4,160.0 242.8,120.1 259.2,88.8 275.6,68.8 292.0,57.6 308.4,51.7 324.8,48.8 341.2,47.3 357.6,46.7 374.0,46.3" fill="none" stroke="#2456a6" stroke-width="2.5"/>
+<circle cx="177.2" cy="251.2" r="4.5" fill="#fff" stroke="#16203a" stroke-width="2"/>
+<text x="177.2" y="242.2" font-size="8.5" fill="#16203a" text-anchor="middle">0.10</text>
+<circle cx="275.6" cy="68.8" r="4.5" fill="#fff" stroke="#16203a" stroke-width="2"/>
+<text x="275.6" y="59.8" font-size="8.5" fill="#16203a" text-anchor="middle">0.90</text>
+<circle cx="308.4" cy="51.7" r="4.5" fill="#fff" stroke="#16203a" stroke-width="2"/>
+<text x="308.4" y="42.7" font-size="8.5" fill="#16203a" text-anchor="middle">0.97</text>
+<circle cx="341.2" cy="47.3" r="4.5" fill="#fff" stroke="#16203a" stroke-width="2"/>
+<text x="341.2" y="38.3" font-size="8.5" fill="#16203a" text-anchor="middle">0.99</text>
+</svg>

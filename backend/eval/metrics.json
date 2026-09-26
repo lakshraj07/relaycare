@@ -1,0 +1,1970 @@
+{
+  "cohort_counts": {
+    "index_patients": 600,
+    "relatives": 67,
+    "total_patients": 667,
+    "observations": 600,
+    "unique_variants": 99,
+    "by_scenario": {
+      "upgrade_actionable": 102,
+      "deceased_actionable": 6,
+      "trap_1star": 30,
+      "downgrade": 72,
+      "stable_textvariant": 48,
+      "unchanged_stable": 342
+    },
+    "underrepresented_ancestry": 484,
+    "cascade_relatives_total": 67,
+    "planned": {
+      "upgrade_actionable": 108,
+      "downgrade": 72,
+      "trap_1star": 30,
+      "stable_textvariant": 48,
+      "unchanged_stable": 342
+    }
+  },
+  "detection": {
+    "tp": 210,
+    "fp": 0,
+    "fn": 0,
+    "tn": 390,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "specificity": 1.0,
+    "false_positive_rate": 0.0,
+    "direction_accuracy": 1.0,
+    "hard_negatives": {
+      "n": 48,
+      "false_positives": 0,
+      "specificity": 1.0,
+      "note": "text changes that do not cross a category boundary; the real specificity test"
+    },
+    "positives_note": "Reclassification positives cross a category boundary by construction; P/R/F1 here is a deterministic regression check, not an accuracy measurement."
+  },
+  "action": {
+    "confusion": {
+      "actionable": {
+        "actionable": 102,
+        "withhold": 0,
+        "reassure": 0,
+        "ethics": 0
+      },
+      "withhold": {
+        "actionable": 0,
+        "withhold": 30,
+        "reassure": 0,
+        "ethics": 0
+      },
+      "reassure": {
+        "actionable": 0,
+        "withhold": 0,
+        "reassure": 72,
+        "ethics": 0
+      },
+      "ethics": {
+        "actionable": 0,
+        "withhold": 0,
+        "reassure": 0,
+        "ethics": 6
+      }
+    },
+    "accuracy": 1.0,
+    "n_scored": 210,
+    "withhold_recall": 1.0,
+    "withhold_n": 30,
+    "dangerous_escalations": 0
+  },
+  "per_case": [
+    {
+      "patient_id": "cohort-0001-tao-park",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0004-tariq-nasser",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0005-charlotte-bauer",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0009-omar-rahman",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0010-vikram-khan",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0013-clara-romano",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0014-priya-sharma",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0015-arjun-patel",
+      "scenario": "deceased_actionable",
+      "expected": "ethics",
+      "predicted": "ethics",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0016-mei-kim",
+      "scenario": "deceased_actionable",
+      "expected": "ethics",
+      "predicted": "ethics",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0017-meera-sharma",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0018-emma-andersson",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0019-min-jun-chen",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0020-salma-khalil",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0022-kwame-mensah",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0023-soo-jin-nguyen",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0024-marco-reyes",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0025-marisol-romero",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0026-imran-patel",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0027-tao-nguyen",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0028-lin-tanaka",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0029-yusuf-nasser",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0030-marisol-romero",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0034-sami-khalil",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0035-omar-nasser",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0039-valeria-vega",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0043-camila-castillo",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0044-omar-nasser",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0045-yuki-nguyen",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0046-yusuf-nasser",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0047-lukas-kovac",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0048-divya-singh",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0049-liam-andersson",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0050-arjun-reddy",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0051-noor-haddad",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0055-salma-haddad",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0057-soo-jin-chen",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0058-valeria-vega",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0059-wei-tanaka",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0063-kwame-banda",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0064-yuki-park",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0065-priya-singh",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0066-dev-iyer",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0067-jia-chen",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0070-hana-park",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0071-mateo-morales",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0072-rajesh-reddy",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0073-hannah-bauer",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0076-camila-morales",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0077-lin-nguyen",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0078-tunde-nkosi",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0082-hadi-aziz",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0083-jabari-dlamini",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0084-karim-mansour",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0085-hana-kim",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0089-javier-vega",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0090-marisol-castillo",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0091-nora-bauer",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0092-jabari-okafor",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0094-marco-garcia",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0097-marco-garcia",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0098-hadi-aziz",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0099-valeria-romero",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0101-kwame-dlamini",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0102-mateo-garcia",
+      "scenario": "deceased_actionable",
+      "expected": "ethics",
+      "predicted": "ethics",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0103-tunde-dlamini",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0104-liam-kovac",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0105-meera-singh",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0106-min-jun-wang",
+      "scenario": "deceased_actionable",
+      "expected": "ethics",
+      "predicted": "ethics",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0107-karthik-khan",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0108-tariq-rahman",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0109-sofia-romero",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0112-fatima-banda",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0113-ren-park",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0116-soo-jin-chen",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0120-felix-andersson",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0121-marisol-morales",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0122-mei-chen",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0123-hadi-aziz",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0127-sophie-schmidt",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0128-emma-romano",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0129-chike-banda",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0130-zola-banda",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0131-marco-romero",
+      "scenario": "deceased_actionable",
+      "expected": "ethics",
+      "predicted": "ethics",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0132-hadi-rahman",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0136-tariq-mansour",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0137-layla-nasser",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0138-sophie-andersson",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0141-aisha-dlamini",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0142-imran-khan",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0143-mei-wang",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0144-anton-kovac",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0145-emma-romano",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0149-mei-wang",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0150-tariq-nasser",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0151-elena-morales",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0154-mateo-morales",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0157-javier-vega",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0159-clara-novak",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0160-haruto-park",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0163-sana-reddy",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0164-charlotte-bauer",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0166-anton-andersson",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0167-sipho-adeyemi",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0168-liam-andersson",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0169-imran-reddy",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 2,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0170-min-jun-wang",
+      "scenario": "deceased_actionable",
+      "expected": "ethics",
+      "predicted": "ethics",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0171-marisol-reyes",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0172-thandiwe-okafor",
+      "scenario": "upgrade_actionable",
+      "expected": "actionable",
+      "predicted": "actionable",
+      "stars": 3,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0176-nora-kovac",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0177-mei-kim",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0178-felix-bauer",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0179-liam-bauer",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0180-kofi-adeyemi",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0181-tunde-dlamini",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0182-lukas-schmidt",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0183-jabari-banda",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0184-emma-schmidt",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0185-yasmin-nasser",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0186-marco-reyes",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0187-lukas-kovac",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0188-emma-bauer",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0189-yuki-park",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0190-elena-reyes",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0191-charlotte-bauer",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0192-marco-morales",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0193-chen-park",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0194-fatima-mensah",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0195-sofia-reyes",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0196-yasmin-aziz",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0197-dalia-rahman",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0198-vikram-singh",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0199-priya-reddy",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0200-layla-aziz",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0201-fatima-mensah",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0202-clara-andersson",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0203-anton-schmidt",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0204-charlotte-andersson",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0205-zola-okafor",
+      "scenario": "trap_1star",
+      "expected": "withhold",
+      "predicted": "withhold",
+      "stars": 1,
+      "direction": "escalation",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0206-kofi-mensah",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0207-zola-mensah",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0208-min-jun-wang",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0209-nora-kovac",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0210-emma-schmidt",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0211-marco-vega",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0212-min-jun-park",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0213-karthik-patel",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0214-camila-romero",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0215-hana-wang",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0216-sami-khalil",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0217-divya-reddy",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0218-liam-kovac",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0219-karim-khalil",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0220-charlotte-novak",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0221-amara-okafor",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0222-reshma-khan",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0223-charlotte-andersson",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0224-amara-dlamini",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0225-chen-park",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0226-zola-banda",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0227-kofi-okafor",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 2,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0228-dalia-nasser",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0229-noor-haddad",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0230-tariq-rahman",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0231-noor-nasser",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 2,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0232-karthik-khan",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 2,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0233-yusuf-haddad",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0234-javier-castillo",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0235-noah-kovac",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0236-soo-jin-kim",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 2,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0237-noah-kovac",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0238-valeria-vega",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0239-lin-park",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 1,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0240-mei-nguyen",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0241-tunde-adeyemi",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0242-sana-khan",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 2,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0243-omar-rahman",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0244-jia-kim",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0245-anton-kovac",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0246-hannah-schmidt",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0247-tao-tanaka",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0248-javier-romero",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 2,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0249-omar-haddad",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0250-dev-singh",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0251-chen-chen",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0252-lin-kim",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0253-amara-nkosi",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0254-erik-novak",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0255-wei-park",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0256-kofi-dlamini",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0257-amara-dlamini",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0258-fatima-adeyemi",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0259-lucia-romero",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0260-marisol-reyes",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0261-chen-wang",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0262-santiago-vega",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0263-imran-reddy",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0264-lin-chen",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0265-sophie-kovac",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0266-noah-andersson",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0267-imran-singh",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0268-rajesh-singh",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0269-karthik-khan",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0270-sophie-bauer",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0271-lukas-novak",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": false
+    },
+    {
+      "patient_id": "cohort-0272-mateo-garcia",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0273-kofi-okafor",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0274-lucia-romero",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0275-divya-reddy",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0276-wei-nguyen",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 3,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    },
+    {
+      "patient_id": "cohort-0277-sami-nasser",
+      "scenario": "downgrade",
+      "expected": "reassure",
+      "predicted": "reassure",
+      "stars": 2,
+      "direction": "downgrade",
+      "ancestry_underrepresented": true
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+google-adk==2.1.0
+python-dotenv>=1.0.0
+fastapi>=0.115
+uvicorn>=0.30
+google-cloud-bigquery>=3.40    # read the evidence warehouse
+google-cloud-firestore>=2.16   # FHIR R4 registry
+google-cloud-storage>=2.16     # stage gene evidence to GCS for onboarding
+
+# dev / test
+pytest>=8.0
+mcp>=1.0          # MCP client for the Fivetran MCP server
+uv>=0.5           # provides uvx (local fallback launcher)
+# The official Fivetran MCP server, baked into the image so the live Cloud Run
+# app spawns the real MCP (the hard requirement), no git/uvx needed at runtime.
+fivetran-mcp @ git+https://github.com/fivetran/fivetran-mcp

@@ -1,0 +1,12 @@
+# keep the build context small and runtime-only
+.venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+_staging/
+tests/
+eval/
+scripts/
+.pytest_cache/
+.env
+hello.py
