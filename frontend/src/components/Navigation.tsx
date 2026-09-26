@@ -21,8 +21,9 @@ export default function Navigation() {
     <nav style={{ position: 'sticky', top: 0, zIndex: 100 }}>
       <div style={{ background: 'rgba(255,255,255,.82)', backdropFilter: 'blur(10px)', borderBottom: '1px solid var(--line)' }}>
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '.85rem 2rem' }}>
-          <Link to="/" style={{ display: 'flex', alignItems: 'center' }} aria-label="RelayCare home">
-            <img src="/logo-header.png" alt="RelayCare" style={{ height: '51px', width: 'auto', display: 'block' }} />
+          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '.7rem' }} aria-label="RelayCare home">
+            <img src="/relaycare-mark.png" alt="" aria-hidden="true" style={{ height: '42px', width: '42px', objectFit: 'contain', display: 'block' }} />
+            <span className="display" style={{ fontSize: '1.45rem', color: 'var(--ink)', letterSpacing: '-.03em' }}>RelayCare</span>
           </Link>
 
           <div style={{ display: 'flex', gap: '1.9rem', alignItems: 'center' }}>

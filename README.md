@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/unravel-logo.png" alt="RelayCare — Genomics · Clinical Intelligence" width="560">
+  <img src="assets/relaycare-logo.png" alt="RelayCare — Genomics · Clinical Intelligence" width="560">
 </p>
 
 # RelayCare

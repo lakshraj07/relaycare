@@ -5,7 +5,10 @@ export default function Footer() {
     <footer className="footer">
       <div className="container" style={{ padding: '2.5rem 2rem', display: 'flex', flexWrap: 'wrap', gap: '1.5rem', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ maxWidth: '380px' }}>
-          <img src="/logo-footer.png" alt="RelayCare" style={{ height: '60px', width: 'auto' }} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '.7rem' }}>
+            <img src="/relaycare-mark.png" alt="" aria-hidden="true" style={{ height: '48px', width: '48px', objectFit: 'contain' }} />
+            <div className="display" style={{ fontSize: '1.6rem', color: 'var(--ink)' }}>RelayCare</div>
+          </div>
           <div style={{ fontSize: '.85rem', color: 'var(--muted)', marginTop: '.55rem' }}>
             Closing the diagnostic loop that stays open for years, for the patient and their family.
           </div>
