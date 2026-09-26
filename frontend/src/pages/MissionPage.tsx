@@ -41,15 +41,14 @@ export default function MissionPage() {
         <div className="wrapX" style={{ maxWidth: '900px' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={viewport} transition={{ duration: .6 }}>
             <div className="mono-tag"><span className="dash" /> Why this matters to me · 01</div>
-            <h2 className="display display-mid" style={{ margin: '1rem 0 1.3rem', maxWidth: '20ch' }}>I saw this gap up close.</h2>
+            <h2 className="display display-mid" style={{ margin: '1rem 0 1.3rem', maxWidth: '20ch' }}>This is personal for me.</h2>
             <blockquote className="pullquote" style={{ maxWidth: '60ch' }}>
-              My mom has a PhD and works in cancer genetics. I have seen firsthand how much careful work goes into deciding
-              which genetic variants matter, and how easily a changed interpretation can fail to reach the family it was about.
+              My mom has a PhD and works in cancer genetics. I grew up seeing how much careful work goes into deciding which
+              variants matter, and how easily a changed interpretation can fail to reach the family it was about.
             </blockquote>
             <p className="body-lg" style={{ maxWidth: '58ch', marginTop: '1.4rem' }}>
-              The <strong style={{ color: 'var(--ink)' }}>interpretation</strong> belongs with trained clinicians. The
-              <em> delivery</em> of a changed interpretation is the part no one owns. That missing layer is what I built
-              RelayCare to explore.
+              The <strong style={{ color: 'var(--ink)' }}>interpretation</strong> belongs with trained clinicians. I built
+              RelayCare to help keep track of what changed, who may be affected, and what still needs a human decision.
             </p>
           </motion.div>
         </div>
