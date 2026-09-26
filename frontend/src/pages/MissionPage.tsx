@@ -5,12 +5,19 @@ import { ArrowRight, AlertTriangle, ShieldCheck, GitBranch, HeartPulse } from 'l
 
 const viewport = { once: true, margin: '-80px' };
 
-function Clip({ src, caption }: { src: string; caption: ReactNode }) {
+function Clip({ src, caption, alt }: { src: string; caption: ReactNode; alt: string }) {
+  const isVideo = src.endsWith('.mp4');
+
   return (
     <motion.figure className="card" style={{ padding: '.8rem', margin: 0, background: 'var(--paper)', overflow: 'hidden' }}
       initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={viewport} transition={{ duration: .6 }}>
-      <video src={src} autoPlay muted loop playsInline
-        style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 'var(--r-sm)' }} />
+      {isVideo ? (
+        <video src={src} autoPlay muted loop playsInline aria-label={alt}
+          style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 'var(--r-sm)' }} />
+      ) : (
+        <img src={src} alt={alt}
+          style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 'var(--r-sm)' }} />
+      )}
       <figcaption className="mono" style={{ fontSize: '.72rem', color: 'var(--faint)', marginTop: '.7rem', textAlign: 'center' }}>{caption}</figcaption>
     </motion.figure>
   );
@@ -89,7 +96,8 @@ export default function MissionPage() {
         </div>
 
         <div className="wrapX" style={{ marginTop: '2.4rem' }}>
-          <Clip src="/anim/diane-timeline.mp4"
+          <Clip src="/images/relaycare-family-loop.png"
+            alt="Clinician and family member reviewing a genetic evidence timeline together"
             caption="2019 → 2023 · the variant flips, the update reaches the public database, and the link to Diane never completes" />
         </div>
       </section>
@@ -132,7 +140,8 @@ export default function MissionPage() {
               </p>
             </div>
           </motion.div>
-          <Clip src="/anim/identical-opposite-verdict.mp4"
+          <Clip src="/images/relaycare-evidence-judgement.png"
+            alt="Genetics reviewers comparing two evidence files with different review-quality signals"
             caption="Identical molecular evidence, opposite verdict, decided on review quality, the call a threshold cannot make" />
         </div>
       </section>
