@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Extract AlphaMissense (hg38) pathogenicity scores for the Lynch-syndrome genes.
 #
-# AlphaMissense is Unravel's PP3 / BP4 evidence stream (a ClinGen-calibrated
+# AlphaMissense is RelayCare's PP3 / BP4 evidence stream (a ClinGen-calibrated
 # in-silico missense predictor; supporting evidence, never the classifier). There
 # is no public BigQuery copy, so we stream the bulk hg38 table from the public
 # DeepMind bucket and filter to the five Lynch-gene GRCh38 coordinate windows on

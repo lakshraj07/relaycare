@@ -7,7 +7,7 @@ import {
   getCohort, getFreshness, resync, pauseConnector, runLoopStream, getStructural,
   getOnboardStatus, onboardGene, getWarehouseInfo, getAuditLog, approveCase,
   type CohortRow, type Feed, type Adjudication, type ResolutionPlan,
-  type CascadeResult, type StewardResult, type Structural, type LoopStreamEvent,
+  type KinshipResult, type SafeguardResult, type Structural, type LoopStreamEvent,
   type OnboardStatus, type WarehouseInfo, type AuditLogEvent,
 } from '../api';
 import PedigreeView from '../dash/PedigreeView';
@@ -34,10 +34,10 @@ interface AuditEvent { ts: number; cat: 'fivetran' | 'agent' | 'system'; text: s
 type NodeState = 'idle' | 'running' | 'done' | 'held';
 interface LogLine { agent: string; text: string; tone: 'ok' | 'warn' | 'info'; }
 
-const AGENTS = ['Watcher', 'Adjudicator', 'Planner', 'Cascade', 'Steward'] as const;
+const AGENTS = ['Scout', 'Arbiter', 'Pathfinder', 'Kinship', 'Safeguard'] as const;
 type Agent = typeof AGENTS[number];
 const AGENT_ICON: Record<Agent, typeof Eye> = {
-  Watcher: Eye, Adjudicator: Scale, Planner: GitBranch, Cascade: Users, Steward: ShieldCheck,
+  Scout: Eye, Arbiter: Scale, Pathfinder: GitBranch, Kinship: Users, Safeguard: ShieldCheck,
 };
 const SOURCE_ICON: Record<string, typeof Database> = {
   clinvar: Database, gnomad: Dna, alphamissense: Cpu, alphafold: Box, gemini: Sparkles,
@@ -90,7 +90,7 @@ export default function AppDashboard() {
   const [sel, setSel] = useState<CohortRow | null>(null);
 
   const [nodes, setNodes] = useState<Record<Agent, NodeState>>({
-    Watcher: 'idle', Adjudicator: 'idle', Planner: 'idle', Cascade: 'idle', Steward: 'idle',
+    Scout: 'idle', Arbiter: 'idle', Pathfinder: 'idle', Kinship: 'idle', Safeguard: 'idle',
   });
   const [running, setRunning] = useState(false);
   const [view, setView] = useState<View>('watchlist');
@@ -98,8 +98,8 @@ export default function AppDashboard() {
   const [log, setLog] = useState<LogLine[]>([]);
   const [adj, setAdj] = useState<Adjudication | null>(null);
   const [plan, setPlan] = useState<ResolutionPlan | null>(null);
-  const [casc, setCasc] = useState<CascadeResult | null>(null);
-  const [stew, setStew] = useState<StewardResult | null>(null);
+  const [casc, setCasc] = useState<KinshipResult | null>(null);
+  const [stew, setStew] = useState<SafeguardResult | null>(null);
   const [struc, setStruc] = useState<Structural | null>(null);
   const [events, setEvents] = useState<AuditEvent[]>([]);
   const logRef = useRef<HTMLDivElement>(null);
@@ -121,7 +121,7 @@ export default function AppDashboard() {
 
   function selectPatient(r: CohortRow) {
     setSel(r);
-    setNodes({ Watcher: 'idle', Adjudicator: 'idle', Planner: 'idle', Cascade: 'idle', Steward: 'idle' });
+    setNodes({ Scout: 'idle', Arbiter: 'idle', Pathfinder: 'idle', Kinship: 'idle', Safeguard: 'idle' });
     setAdj(null); setPlan(null); setCasc(null); setStew(null); setStruc(null); setLog([]);
     // the evidence dossier (3D structure) is available for ANY patient, not only
     // reclassified ones, so fetch it on select rather than waiting for the loop.
@@ -165,9 +165,9 @@ export default function AppDashboard() {
     setRunning(true);
     setAdj(null); setPlan(null); setCasc(null); setStew(null); setLog([]);
 
-    // the live topology: Watcher -> Adjudicator -> fan-out (Planner ‖ Cascade ‖ Steward)
-    setNodes({ Watcher: 'running', Adjudicator: 'idle', Planner: 'idle', Cascade: 'idle', Steward: 'idle' });
-    push('Watcher', `${r.gene} ${r.hgvs_c}: registry "${r.recorded_class}" vs ClinVar "${r.current_class}" (${r.review_stars}★) — five Gemini agents reasoning…`, 'info');
+    // the live topology: Scout -> Arbiter -> fan-out (Pathfinder ‖ Kinship ‖ Safeguard)
+    setNodes({ Scout: 'running', Arbiter: 'idle', Pathfinder: 'idle', Kinship: 'idle', Safeguard: 'idle' });
+    push('Scout', `${r.gene} ${r.hgvs_c}: registry "${r.recorded_class}" vs ClinVar "${r.current_class}" (${r.review_stars}★) — five Gemini agents reasoning…`, 'info');
     logEvent('agent', `Watch loop started: ${r.patient_name} (${r.gene} ${r.hgvs_c})`, 'info');
     logEvent('fivetran', 'MCP get_connection_details → checked evidence-feed freshness before adjudication', 'info');
 
@@ -176,29 +176,29 @@ export default function AppDashboard() {
     const startFanOut = () => {
       if (fanOutStarted.v) return;
       fanOutStarted.v = true;
-      setNodes((n) => ({ ...n, Planner: 'running', Cascade: verdictActionable ? 'running' : 'held', Steward: 'running' }));
-      if (!verdictActionable) push('Cascade', 'held — verdict not actionable, no family recontact drafted', 'warn');
+      setNodes((n) => ({ ...n, Pathfinder: 'running', Kinship: verdictActionable ? 'running' : 'held', Safeguard: 'running' }));
+      if (!verdictActionable) push('Kinship', 'held — verdict not actionable, no family recontact drafted', 'warn');
     };
 
     const onEvent = (e: LoopStreamEvent) => {
       const d = (e.data || {}) as Record<string, any>;
-      if (e.agent === 'watcher') {
-        push('Watcher', d.summary || 'change triaged for adjudication', 'ok');
-        setNode('Watcher', 'done'); setNode('Adjudicator', 'running');
-      } else if (e.agent === 'adjudicator') {
+      if (e.agent === 'scout') {
+        push('Scout', d.summary || 'change triaged for adjudication', 'ok');
+        setNode('Scout', 'done'); setNode('Arbiter', 'running');
+      } else if (e.agent === 'arbiter') {
         verdictActionable = d.action === 'draft_recontact' && !d.withheld;
         setAdj({ patient_id: r.patient_id, reclassified: true, verdict: { triage: d.triage, action: d.action, withheld: !!d.withheld, rationale: d.rationale, key_evidence: [] } } as Adjudication);
-        push('Adjudicator', `verdict: ${d.triage} · ${d.action}${d.withheld ? ' · WITHHELD' : ''}`, d.withheld ? 'warn' : 'ok');
+        push('Arbiter', `verdict: ${d.triage} · ${d.action}${d.withheld ? ' · WITHHELD' : ''}`, d.withheld ? 'warn' : 'ok');
         logEvent('agent', `${r.patient_name} · ${r.gene} ${r.hgvs_c}: ${d.triage} / ${d.action}${d.withheld ? ' (withheld)' : ''}`, d.withheld ? 'warn' : 'ok');
-        setNode('Adjudicator', 'done');
+        setNode('Arbiter', 'done');
         startFanOut();
         if (r.hgvs_p) getStructural(r.gene, r.hgvs_p).then(setStruc).catch(() => {});
-      } else if (e.agent === 'resolution_planner') {
+      } else if (e.agent === 'pathfinder') {
         startFanOut();
         setPlan({ recommendation: d.recommendation || '', steps: [] } as unknown as ResolutionPlan);
-        push('Planner', d.recommendation || 'no resolving experiment found', 'ok');
-        setNode('Planner', 'done');
-      } else if (e.agent === 'cascade_coordinator') {
+        push('Pathfinder', d.recommendation || 'no resolving experiment found', 'ok');
+        setNode('Pathfinder', 'done');
+      } else if (e.agent === 'kinship') {
         startFanOut();
         if (d.applicable) {
           const drafts = ((d.drafts as any[]) || []).map((x, i) => ({
@@ -209,30 +209,30 @@ export default function AppDashboard() {
           const isCarrier = (rel: string) => ['patient', 'proband', 'carrier'].includes((rel || '').toLowerCase());
           const nCarriers = drafts.filter((x) => isCarrier(x.relationship)).length;
           setCasc({ variant: `${r.gene} ${r.hgvs_c}`, carriers: nCarriers, relatives: drafts.length - nCarriers,
-            deceased_carriers: [], drafts, note: 'Draft-only (intent: proposal, status: draft). A clinician reviews and sends.' } as CascadeResult);
-          push('Cascade', `drafted ${drafts.length} clinician-facing recontact proposal(s)`, 'ok');
-          setNode('Cascade', 'done');
+            deceased_carriers: [], drafts, note: 'Draft-only (intent: proposal, status: draft). A clinician reviews and sends.' } as KinshipResult);
+          push('Kinship', `drafted ${drafts.length} clinician-facing recontact proposal(s)`, 'ok');
+          setNode('Kinship', 'done');
         } else {
-          setNode('Cascade', 'held');
+          setNode('Kinship', 'held');
         }
-      } else if (e.agent === 'steward') {
+      } else if (e.agent === 'safeguard') {
         startFanOut();
         const routes = (d.ethics_routes as any[]) || [];
         setStew({ variant: `${r.gene} ${r.hgvs_c}`, has_deceased_carrier: routes.length > 0,
           ethics_routes: routes.map((x: any) => ({ deceased: x.deceased, route: x.route || 'ethics / next-of-kin consent pathway', rationale: '', living_relatives: x.living_relatives || [] })),
-          give_back: { variant: `${r.gene} ${r.hgvs_c}`, submitted_classification: (d.give_back as any)?.classification || r.current_class || '', evidence: [], gene: r.gene } } as StewardResult);
-        if (routes.length > 0) push('Steward', 'deceased carrier — routed to ethics / next-of-kin pathway', 'warn');
-        else push('Steward', 'drafted ClinVar give-back submission', 'ok');
-        setNode('Steward', 'done');
+          give_back: { variant: `${r.gene} ${r.hgvs_c}`, submitted_classification: (d.give_back as any)?.classification || r.current_class || '', evidence: [], gene: r.gene } } as SafeguardResult);
+        if (routes.length > 0) push('Safeguard', 'deceased carrier — routed to ethics / next-of-kin pathway', 'warn');
+        else push('Safeguard', 'drafted ClinVar give-back submission', 'ok');
+        setNode('Safeguard', 'done');
       }
     };
 
     const onDone = (err?: string) => {
-      if (err && err !== 'stream error') push('Watcher', `error: ${err}`, 'warn');
+      if (err && err !== 'stream error') push('Scout', `error: ${err}`, 'warn');
       // any node still 'running' (e.g. a held branch) settles
       setNodes((n) => {
         const out = { ...n };
-        (['Planner', 'Cascade', 'Steward'] as Agent[]).forEach((a) => {
+        (['Pathfinder', 'Kinship', 'Safeguard'] as Agent[]).forEach((a) => {
           if (out[a] === 'running') out[a] = 'done';
         });
         return out;
@@ -312,7 +312,7 @@ export default function AppDashboard() {
     { selector: '[data-tour="metrics"]', title: 'The scale', body: 'Tens of thousands of variants kept under surveillance, and how many have already reclassified in this clinic’s cohort.', onEnter: () => { setView('watchlist'); ensureCase(); } },
     { selector: '[data-tour="watchlist"]', title: 'The watchlist', body: 'Each row is a patient with a past variant of uncertain significance (VUS), ranked by urgency and by how many years it has gone unreviewed.', onEnter: () => setView('watchlist') },
     { selector: '[data-tour="posterior"]', title: 'A calibrated probability', body: 'This is the published point-based Bayesian ACMG probability of pathogenicity, not an invented score. About 0.90 is the line where a variant becomes actionable.', onEnter: () => { setView('watchlist'); ensureCase(); } },
-    { selector: '[data-tour="pipeline"]', title: 'Five Gemini agents', body: 'The Watcher detects the change, the Adjudicator judges it and withholds on weak evidence, then the Planner, Cascade and Steward agents fan out in parallel.', onEnter: () => { setView('watchlist'); ensureCase(); } },
+    { selector: '[data-tour="pipeline"]', title: 'Five Gemini agents', body: 'The Scout detects the change, the Arbiter judges it and withholds on weak evidence, then the Pathfinder, Kinship and Safeguard agents fan out in parallel.', onEnter: () => { setView('watchlist'); ensureCase(); } },
     { selector: '[data-tour="structure"]', title: 'The structural story', body: 'The real AlphaFold 3D model, coloured by AlphaMissense. Red residues are predicted more damaging. It is supporting evidence, never the verdict on its own.', onEnter: () => { setView('watchlist'); ensureCase(); } },
     { selector: '[data-tour="connectors"]', title: 'Fivetran keeps it fresh', body: 'The public evidence commons, synced into BigQuery. Check connector health and run re-syncs, pauses and resumes, all through the real Fivetran MCP server.', onEnter: () => setView('explorer') },
     { selector: '[data-tour="onboarding"]', title: 'Onboard a gene on demand', body: 'A gene looked up often enough is promoted into the warehouse: the agent creates a real Fivetran connector via the MCP, behind a human approval.', onEnter: () => setView('explorer') },
@@ -516,7 +516,7 @@ export default function AppDashboard() {
               </div>
 
               {adj?.verdict && (
-                <OutCard title="Adjudicator verdict · Gemini 3.1 Pro" edge={adj.verdict.withheld ? 'var(--path)' : 'var(--thread)'}>
+                <OutCard title="Arbiter verdict · Gemini 3.1 Pro" edge={adj.verdict.withheld ? 'var(--path)' : 'var(--thread)'}>
                   <div style={{ display: 'flex', gap: '.4rem', flexWrap: 'wrap', marginBottom: '.5rem' }}>
                     <span style={tag(adj.verdict.triage === 'actionable' ? 'var(--path-d)' : 'var(--thread-d)', adj.verdict.triage === 'actionable' ? 'var(--path-bg)' : 'var(--vus-bg)')}>triage: {adj.verdict.triage}</span>
                     <span style={tag('var(--ink)', 'var(--paper-2)')}>action: {adj.verdict.action}</span>
@@ -527,7 +527,7 @@ export default function AppDashboard() {
               )}
 
               {plan && (
-                <OutCard title="Resolution Planner · next best evidence" edge="var(--conflict)">
+                <OutCard title="Pathfinder · next best evidence" edge="var(--conflict)">
                   <p style={{ fontSize: '.88rem', marginBottom: '.5rem' }}>{plan.recommendation}</p>
                   {plan.steps.slice(0, 4).map((s) => (
                     <div key={s.label} style={{ display: 'flex', alignItems: 'center', gap: '.5rem', fontSize: '.76rem', padding: '.2rem 0', borderTop: '1px solid var(--line)' }}>
@@ -542,7 +542,7 @@ export default function AppDashboard() {
               {casc && <CascadeCard casc={casc} />}
 
               {stew && (stew.has_deceased_carrier || stew.give_back) && (
-                <OutCard title="Steward · ethics + give-back" edge="var(--benign)">
+                <OutCard title="Safeguard · ethics + give-back" edge="var(--benign)">
                   {stew.ethics_routes.map((e) => (
                     <div key={e.deceased} style={{ fontSize: '.85rem', marginBottom: '.4rem' }}>
                       <b>{e.deceased}</b> (deceased) → {e.route}. Living relatives: {e.living_relatives.join(', ') || 'none on file'}.
@@ -971,14 +971,14 @@ function PipelineNode({ name, state }: { name: Agent; state: NodeState }) {
   );
 }
 
-function CascadeCard({ casc }: { casc: CascadeResult }) {
+function CascadeCard({ casc }: { casc: KinshipResult }) {
   const [showFhir, setShowFhir] = useState(false);
   const [fhirIdx, setFhirIdx] = useState(0);
   const draft = casc.drafts[fhirIdx];
   const fhirBundle = draft ? [draft.communication, draft.risk_assessment].filter(Boolean) : [];
 
   return (
-    <OutCard title="Cascade Coordinator · draft recontact" edge="var(--path)">
+    <OutCard title="Kinship · draft recontact" edge="var(--path)">
       <div style={{ fontSize: '.88rem', marginBottom: '.4rem' }}>
         <b>{casc.drafts.length}</b> draft FHIR proposals, {casc.carriers} carrier(s) + {casc.relatives} at-risk relative(s)
       </div>

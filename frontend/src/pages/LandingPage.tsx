@@ -97,19 +97,19 @@ export default function LandingPage() {
             Five agents. One loop. Genuinely multi-agent.
           </h2>
           <p className="body-lg" style={{ maxWidth: '52ch', marginBottom: '2.8rem' }}>
-            Five Gemini 3.1 agents share one session: a Watcher detects, an Adjudicator judges and withholds, and a parallel fan-out plans, cascades and stewards. They reason; auditable tools execute.
+            Five Gemini 3.1 agents share one session: Scout detects, Arbiter judges and withholds, and a parallel fan-out moves the case through Pathfinder, Kinship and Safeguard. They reason; auditable tools execute.
           </p>
 
           <motion.div className="tiles-3" initial="h" whileInView="s" viewport={viewport}
             variants={{ h: {}, s: { transition: { staggerChildren: .12 } } }}>
-            <Tile kicker="Watcher · Flash-Lite" accent="var(--primary)" icon={<RefreshCw size={22} color="var(--primary)" />}
-              title="The Watcher" body="Continuous Fivetran sync across the evidence commons, driven through the real MCP server. Reads freshness, triggers re-syncs, and runs an auditable delta against the historical VUS registry."
+            <Tile kicker="Scout · Flash-Lite" accent="var(--primary)" icon={<RefreshCw size={22} color="var(--primary)" />}
+              title="Scout" body="Continuous Fivetran sync across the evidence commons, driven through the real MCP server. Reads freshness, triggers re-syncs, and runs an auditable delta against the historical VUS registry."
               sketch={<SketchSync />} />
-            <Tile kicker="Adjudicator · Pro · the moat" accent="var(--conflict)" icon={<ScanSearch size={22} color="var(--conflict)" />}
-              title="The Adjudicator" body="Assembles a cited ACMG ledger, computes a calibrated posterior, and withholds low-confidence flips. Two identical scores, opposite actions, decided on review quality, the part a rules engine gets wrong."
+            <Tile kicker="Arbiter · Pro · the moat" accent="var(--conflict)" icon={<ScanSearch size={22} color="var(--conflict)" />}
+              title="Arbiter" body="Assembles a cited ACMG ledger, computes a calibrated posterior, and withholds low-confidence flips. Two identical scores, opposite actions, decided on review quality, the part a rules engine gets wrong."
               sketch={<SketchAdjudicate />} />
-            <Tile kicker="Planner ‖ Cascade ‖ Steward" accent="var(--path)" icon={<Users size={22} color="var(--path)" />}
-              title="The fan-out" body="Three agents in parallel: the Planner ranks the next-best experiment, the Cascade Coordinator drafts the family recontact as FHIR, and the Steward routes ethics and a ClinVar give-back. Draft-only, clinician reviewed."
+            <Tile kicker="Pathfinder ‖ Kinship ‖ Safeguard" accent="var(--path)" icon={<Users size={22} color="var(--path)" />}
+              title="The fan-out" body="Three agents in parallel: Pathfinder ranks the next-best experiment, Kinship drafts the family recontact as FHIR, and Safeguard routes ethics and a ClinVar give-back. Draft-only, clinician reviewed."
               sketch={<SketchFanout />} />
           </motion.div>
         </div>

@@ -150,7 +150,7 @@ export default function MissionPage() {
             </div>
             <div className="tile">
               <div className="chip" style={{ marginBottom: '1rem' }}><GitBranch size={20} color="var(--primary)" /></div>
-              <h3 className="display" style={{ fontSize: '1.3rem', marginBottom: '.5rem' }}>Cascade-first, disease-agnostic</h3>
+              <h3 className="display" style={{ fontSize: '1.3rem', marginBottom: '.5rem' }}>Kinship-first, disease-agnostic</h3>
               <p style={{ color: 'var(--muted)', fontSize: '.94rem' }}>The beneficiary is often the living relative, not only the proband. The same open loop fails across hereditary cancer and rare disease alike; type any gene and it resolves.</p>
             </div>
             <div className="tile">

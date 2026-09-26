@@ -61,7 +61,7 @@ def test_trap_is_detected_for_the_adjudicator_to_withhold():
     dets = detect_reclassifications(data=data, current=_current_for(data))
     john = next(d for d in dets if d.patient_id == "eric-larsson")
     assert john.is_escalation
-    assert john.review_stars == 1  # low confidence: the Adjudicator will withhold
+    assert john.review_stars == 1  # low confidence: the Arbiter will withhold
 
 
 def test_since_filters_out_records_newer_than_floor():

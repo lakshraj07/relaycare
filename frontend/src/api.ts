@@ -197,7 +197,7 @@ export async function getCohort(): Promise<CohortRow[]> {
   return data.cohort;
 }
 
-// --- the real five-agent ADK loop (Watcher -> Adjudicator -> fan-out) ---------
+// --- the real five-agent ADK loop (Scout -> Arbiter -> fan-out) ----------------
 
 export interface LoopResult {
   patient_id: string;
@@ -341,7 +341,7 @@ export interface CascadeDraft {
   risk_assessment?: Record<string, unknown>;
 }
 
-export interface CascadeResult {
+export interface KinshipResult {
   variant: string;
   carriers: number;
   relatives: number;
@@ -357,7 +357,7 @@ export interface EthicsRoute {
   living_relatives: string[];
 }
 
-export interface StewardResult {
+export interface SafeguardResult {
   variant: string;
   has_deceased_carrier: boolean;
   ethics_routes: EthicsRoute[];
@@ -370,13 +370,13 @@ export async function getPlan(patientId: string): Promise<ResolutionPlan> {
   return res.json();
 }
 
-export async function getCascade(patientId: string): Promise<CascadeResult> {
+export async function getCascade(patientId: string): Promise<KinshipResult> {
   const res = await fetch(`${BASE}/cascade?patient=${encodeURIComponent(patientId)}`, { method: 'POST' });
   if (!res.ok) throw new Error(await detail(res));
   return res.json();
 }
 
-export async function getSteward(patientId: string): Promise<StewardResult> {
+export async function getSafeguard(patientId: string): Promise<SafeguardResult> {
   const res = await fetch(`${BASE}/steward?patient=${encodeURIComponent(patientId)}`, { method: 'POST' });
   if (!res.ok) throw new Error(await detail(res));
   return res.json();

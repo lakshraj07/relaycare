@@ -1,9 +1,9 @@
-"""detect_reclassifications: the Watcher's deterministic diff vs the registry.
+"""detect_reclassifications: the Scout's deterministic diff vs the registry.
 
 This is plumbing, not the moat: it compares the classification each carrier's
 variant was recorded with (the registry's memory) against the current ClinVar
 classification in the evidence warehouse, and surfaces the ones that moved. The
-Adjudicator decides whether a surfaced change is real and actionable; this step
+Arbiter decides whether a surfaced change is real and actionable; this step
 only finds the candidates, deterministically.
 
 A reclassification is an "escalation" when a variant the clinic recorded as

@@ -32,7 +32,7 @@ GNOMAD_API = "https://gnomad.broadinstitute.org/api"
 EUTILS = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 
 _TIMEOUT = 20
-_UA = "unravel-ra/1.0 (variant surveillance demo)"
+_UA = "relaycare-ra/1.0 (variant surveillance demo)"
 
 # ClinVar review-status string -> star rating (0..4).
 _REVIEW_STARS = {

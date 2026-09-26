@@ -2,7 +2,7 @@
 
 The five agents themselves are real Gemini LlmAgents (unravel/agents.py), validated
 live by scripts/run_adjudication.py and eval/adjudicator_eval.py. This file covers
-the auditable deterministic logic they call as tools, the Resolution Planner's
+the auditable deterministic logic they call as tools, the Pathfinder's
 information-value math (planner.plan_next_evidence) and the watch helpers, offline
 via the pure demo registry (no BigQuery / Firestore / LLM).
 """
@@ -24,7 +24,7 @@ def _trap_ctx() -> EvidenceContext:
     return EvidenceContext(ledger=led, gene_symbol="MLH1", review_stars=1)
 
 
-# --- Resolution Planner tool-logic (plan_next_evidence) ------------------------
+# --- Pathfinder tool-logic (plan_next_evidence) ------------------------
 
 
 def test_planner_recommends_a_crossing_experiment():
@@ -61,7 +61,7 @@ def test_planner_as_dict_shape():
             "recommendation", "steps"} <= set(d)
 
 
-# --- family matching tool-logic (Cascade / Steward read this) ------------------
+# --- family matching tool-logic (Cascade / Safeguard read this) ------------------
 
 
 def test_match_affected_patients_finds_carriers_and_relatives():

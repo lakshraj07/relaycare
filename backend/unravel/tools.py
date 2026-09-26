@@ -1,4 +1,4 @@
-"""FunctionTools for the five Unravel agents (the "hands").
+"""FunctionTools for the five RelayCare agents (the "hands").
 
 The deterministic work, detecting the change, assembling the cited ACMG ledger and
 calibrated posterior, ranking candidate experiments, matching the family, checking
@@ -43,7 +43,7 @@ def _resolve(patient_id: str):
             "hgvs_p": registry.observation_field(obs, "48005-3")}
 
 
-# --- Watcher's tools -----------------------------------------------------------
+# --- Scout's tools -----------------------------------------------------------
 
 
 def lookup_reclassification(patient_id: str) -> dict:
@@ -79,7 +79,7 @@ def check_feed_freshness() -> dict:
         return {"freshness": f"unavailable ({type(e).__name__})"}
 
 
-# --- Adjudicator's tool --------------------------------------------------------
+# --- Arbiter's tool --------------------------------------------------------
 
 
 def assemble_evidence(patient_id: str) -> dict:
@@ -104,7 +104,7 @@ def assemble_evidence(patient_id: str) -> dict:
     }
 
 
-# --- Resolution Planner's tool -------------------------------------------------
+# --- Pathfinder's tool -------------------------------------------------
 
 
 def rank_next_experiments(patient_id: str) -> dict:
@@ -128,7 +128,7 @@ def rank_next_experiments(patient_id: str) -> dict:
     }
 
 
-# --- Cascade Coordinator's tool ------------------------------------------------
+# --- Kinship's tool ------------------------------------------------
 
 
 def find_family(patient_id: str) -> dict:
@@ -152,7 +152,7 @@ def find_family(patient_id: str) -> dict:
             "living_carriers": [c for c in carriers if not c["deceased"]]}
 
 
-# --- Steward's tool ------------------------------------------------------------
+# --- Safeguard's tool ------------------------------------------------------------
 
 
 def steward_assessment(patient_id: str) -> dict:

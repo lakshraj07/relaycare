@@ -58,7 +58,7 @@ def model_calibration() -> dict:
 
 def _fetch_warehouse(client=None) -> list[dict]:
     from google.cloud import bigquery
-    client = client or bigquery.Client(project="unravel-ra")
+    client = client or bigquery.Client(project="relaycare-ra")
     sql = f"""
       SELECT gnomad_af, am_pathogenicity, am_class, clin_sig_simple, review_stars
       FROM `{EVIDENCE_VIEW}`
@@ -173,7 +173,7 @@ a minority are ultimately confirmed pathogenic by ClinVar.
 
 **This is the point, not a flaw.** In highly constrained genes like the Lynch
 panel, in-silico predictors over-call: a high AlphaMissense score is *not* a final
-classification. It is exactly why Unravel (a) caps AlphaMissense as supporting
+classification. It is exactly why RelayCare (a) caps AlphaMissense as supporting
 evidence inside a multi-source ledger rather than letting it decide, (b) requires
 corroboration (review status, segregation, functional) before anything becomes
 actionable, and (c) discloses predictor bias. The number above is evidence FOR the

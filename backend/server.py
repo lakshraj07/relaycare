@@ -1,11 +1,11 @@
-"""HTTP backend for the Unravel SPA.
+"""HTTP backend for the RelayCare SPA.
 
 Real endpoints, backed by the live engine:
   GET  /api/health                      liveness
   GET  /api/cohort                      deterministic pass: detection + ledger +
                                         calibrated posterior for every seeded
                                         carrier (one batched BigQuery query)
-  POST /api/adjudicate?patient=<id>     grounded pass: live Gemini Adjudicator
+  POST /api/adjudicate?patient=<id>     grounded pass: live Gemini Arbiter
                                         verdict for one patient
   GET  /api/structural?gene=&hgvs_p=    AlphaFold + AlphaMissense 3D cluster
   POST /api/run-watch?year=<y>          legacy time-machine stub (frontend scrubber)
@@ -25,12 +25,12 @@ from pydantic import BaseModel
 
 load_dotenv(Path(__file__).parent / ".env")
 
-app = FastAPI(title="Unravel API", version="0.2.0")
+app = FastAPI(title="RelayCare API", version="0.2.0")
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "http://127.0.0.1:5173",
-                   "https://unravel-ra.web.app", "https://unravel-ra.firebaseapp.com"],
+                   "https://relaycare-ra.web.app", "https://relaycare-ra.firebaseapp.com"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -38,7 +38,7 @@ app.add_middleware(
 
 @app.get("/api/health")
 def health() -> dict[str, str]:
-    return {"status": "ok", "service": "unravel-api"}
+    return {"status": "ok", "service": "relaycare-api"}
 
 
 @app.get("/api/cohort")
@@ -54,7 +54,7 @@ def cohort() -> dict:
 @app.post("/api/run-loop")
 def run_loop(patient: str) -> dict:
     """Run the full five-agent ADK loop on one patient (the real multi-agent
-    flow: Watcher -> Adjudicator -> parallel fan-out of Planner/Cascade/Steward,
+    flow: Scout -> Arbiter -> parallel fan-out of Pathfinder/Kinship/Safeguard,
     sharing one Session). Slow, on demand; returns every agent's output."""
     from unravel.agents import run_loop as _run
     try:
@@ -184,7 +184,7 @@ class AssistQuery(BaseModel):
 @app.post("/api/assist")
 async def assist(q: AssistQuery) -> dict:
     """Read-only, grounded data assistant (Gemini Flash). Answers questions about
-    Unravel's data and architecture from a static knowledge pack plus the compact,
+    RelayCare's data and architecture from a static knowledge pack plus the compact,
     already-public context snapshot the UI sends. No DB handle, no write tools; the
     cohort is synthetic. See unravel/assistant.py for the guardrail design."""
     from unravel.assistant import answer_async
@@ -303,9 +303,9 @@ _REVIEW = {"baseline": "1 star, single submitter",
            "closed": "3 star, ClinGen expert panel"}
 _NARRATION = {
     "baseline": "MLH1 variant filed as uncertain. Standard surveillance, no change to management.",
-    "withhold": "A single low-confidence submission appears. Unravel withholds; no alert fired.",
+    "withhold": "A single low-confidence submission appears. RelayCare withholds; no alert fired.",
     "fire": "ClinGen expert panel reclassifies the variant. The agent confirms it and the family is flagged.",
-    "closed": "Loop closed. Cascade testing drafted for at-risk first-degree relatives.",
+    "closed": "Loop closed. Kinship testing drafted for at-risk first-degree relatives.",
 }
 
 

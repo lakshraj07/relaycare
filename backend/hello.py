@@ -1,4 +1,4 @@
-"""Day 1 smoke test: prove the Unravel ADK agent answers end to end via Gemini.
+"""Day 1 smoke test: prove the RelayCare ADK agent answers end to end via Gemini.
 
 Run:  .venv/bin/python hello.py
 """
@@ -16,7 +16,7 @@ from unravel.agent import root_agent
 
 load_dotenv(Path(__file__).parent / ".env")
 
-APP = "unravel"
+APP = "relaycare"
 USER = "day1-smoke"
 SESSION = "s1"
 
@@ -42,5 +42,5 @@ async def main() -> None:
 
 if __name__ == "__main__":
     project = os.getenv("GOOGLE_CLOUD_PROJECT", "(unset)")
-    print(f"[unravel] Vertex project={project}\n")
+    print(f"[relaycare] Vertex project={project}\n")
     asyncio.run(main())

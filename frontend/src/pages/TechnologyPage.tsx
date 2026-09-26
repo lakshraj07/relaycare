@@ -5,29 +5,29 @@ import { motion } from 'framer-motion';
 const viewport = { once: true, margin: '-80px' };
 
 const agents = [
-  { icon: <Database size={20} color="var(--benign)" />, accent: 'var(--benign)', n: '01', name: 'Watcher',
+  { icon: <Database size={20} color="var(--benign)" />, accent: 'var(--benign)', n: '01', name: 'Scout',
     model: 'Gemini 3.1 Flash-Lite', cls: 'badge-benign',
     desc: 'High-volume delta detection. Reads the curated BigQuery view and the Fivetran feed freshness, and fires only when a watched variant has truly crossed a classification boundary, against the clinic’s historical VUS registry.',
     tools: ['lookup_reclassification', 'check_feed_freshness'] },
-  { icon: <ScanSearch size={20} color="var(--path-d)" />, accent: 'var(--path-d)', n: '02', name: 'Adjudicator · the moat',
+  { icon: <ScanSearch size={20} color="var(--path-d)" />, accent: 'var(--path-d)', n: '02', name: 'Arbiter · the moat',
     model: 'Gemini 3.1 Pro', cls: 'badge-path',
     desc: 'Assembles a cited ACMG/AMP evidence ledger, computes a calibrated posterior probability of pathogenicity, and decides triage and action — withholding low-confidence flips. Two variants with the same posterior can warrant opposite actions on review quality.',
     tools: ['assemble_evidence'] },
-  { icon: <GitBranch size={20} color="var(--conflict)" />, accent: 'var(--conflict)', n: '03', name: 'Resolution Planner',
+  { icon: <GitBranch size={20} color="var(--conflict)" />, accent: 'var(--conflict)', n: '03', name: 'Pathfinder',
     model: 'Gemini 3.1 Pro', cls: 'badge-conflict',
     desc: 'For a variant short of the actionable line, ranks every possible next experiment (segregation, tumour MMR/IHC, functional, splicing) by information value, in ACMG currency, and names the single highest-yield move.',
     tools: ['rank_next_experiments'] },
-  { icon: <Users size={20} color="var(--primary)" />, accent: 'var(--primary)', n: '04', name: 'Cascade Coordinator',
+  { icon: <Users size={20} color="var(--primary)" />, accent: 'var(--primary)', n: '04', name: 'Kinship',
     model: 'Gemini 3.1 Pro', cls: 'badge-benign',
     desc: 'On a confirmed actionable upgrade, identifies at-risk relatives from the FHIR pedigree and drafts the clinician alert plus the family fan-out as draft FHIR resources (intent: proposal). Draft-only, never sent.',
     tools: ['find_family'] },
-  { icon: <ShieldCheck size={20} color="var(--thread-d)" />, accent: 'var(--thread-d)', n: '05', name: 'Steward',
+  { icon: <ShieldCheck size={20} color="var(--thread-d)" />, accent: 'var(--thread-d)', n: '05', name: 'Safeguard',
     model: 'Gemini 3.1 Pro', cls: 'badge-vus',
     desc: 'Routes deceased-proband cases to ethics review (never a direct letter), and drafts a ClinVar submission back to the commons when the evidence resolves a variant.',
     tools: ['steward_assessment'] },
 ];
 
-const pipeline = ['Evidence commons', 'Fivetran MCP', 'BigQuery view', 'Watcher', 'Adjudicator', 'Planner ‖ Cascade ‖ Steward', 'draft FHIR · Firestore'];
+const pipeline = ['Evidence commons', 'Fivetran MCP', 'BigQuery view', 'Scout', 'Arbiter', 'Pathfinder ‖ Kinship ‖ Safeguard', 'draft FHIR · Firestore'];
 
 const metrics: [string, string, string][] = [
   ['12 / 12', 'the moat, live Gemini 3.1 Pro', '3-star act vs 1-star withhold at the same 0.81 posterior'],
@@ -70,8 +70,8 @@ export default function TechnologyPage() {
             </h1>
             <p className="body-lg" style={{ maxWidth: '64ch' }}>
               Five real Gemini 3.1 agents in a code-first <strong style={{ color: 'var(--ink)' }}>Google Cloud Agent Builder (ADK)</strong> flow on Cloud Run:
-              a <span className="mono" style={{ fontSize: '.86em' }}>SequentialAgent</span> root runs Watcher → Adjudicator → a
-              <span className="mono" style={{ fontSize: '.86em' }}> ParallelAgent</span> fan-out of Planner, Cascade and Steward over one shared session.
+              a <span className="mono" style={{ fontSize: '.86em' }}>SequentialAgent</span> root runs Scout → Arbiter → a
+              <span className="mono" style={{ fontSize: '.86em' }}> ParallelAgent</span> fan-out of Pathfinder, Kinship and Safeguard over one shared session.
               Fivetran is the evidence heartbeat (driven through the real MCP server); BigQuery is the curated AI data plane; FHIR R4 in Firestore is the clinical seam.
             </p>
             <div style={{ display: 'flex', gap: '.5rem', marginTop: '1.6rem', flexWrap: 'wrap' }}>
@@ -104,7 +104,7 @@ export default function TechnologyPage() {
           <div className="mono-tag"><span className="dash" /> The agents · 02</div>
           <h2 className="display display-mid" style={{ margin: '1rem 0 .6rem', maxWidth: '24ch' }}>Five agents, distinct clocks.</h2>
           <p className="body-lg" style={{ maxWidth: '54ch', marginBottom: '2.2rem' }}>
-            The agents reason (the brain); deterministic <span className="mono" style={{ fontSize: '.86em' }}>FunctionTool</span>s do the auditable work (the hands). The Adjudicator’s verdict fans out to the three specialists in parallel.
+            The agents reason (the brain); deterministic <span className="mono" style={{ fontSize: '.86em' }}>FunctionTool</span>s do the auditable work (the hands). The Arbiter’s verdict fans out to the three specialists in parallel.
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: '1.2rem', marginBottom: '2.6rem' }}>
@@ -127,7 +127,7 @@ export default function TechnologyPage() {
           </div>
 
           <Figure src="/diagrams/agent-topology.png" alt="RelayCare five-agent ADK topology"
-            caption="The ADK flow · SequentialAgent → Watcher → Adjudicator → ParallelAgent fan-out of Planner / Cascade / Steward" />
+            caption="The ADK flow · SequentialAgent → Scout → Arbiter → ParallelAgent fan-out of Pathfinder / Kinship / Safeguard" />
         </div>
       </section>
 
@@ -158,7 +158,7 @@ export default function TechnologyPage() {
                 <Boxes size={22} color="var(--primary)" /><h3 className="display" style={{ fontSize: '1.35rem' }}>The Fivetran MCP seam</h3>
               </div>
               <p style={{ color: 'var(--muted)', fontSize: '.94rem' }}>
-                The real <span className="mono" style={{ fontSize: '.86em' }}>fivetran-mcp</span> server is baked into the Cloud Run image and driven live: it checks each feed’s freshness before the Adjudicator rules, triggers targeted re-syncs, pauses and resumes connectors, and <strong style={{ color: 'var(--ink)' }}>creates new connectors on demand</strong> to onboard a gene once it is looked up often enough. Full CRUD on live connectors, every write gated by a human approval and logged.
+                The real <span className="mono" style={{ fontSize: '.86em' }}>fivetran-mcp</span> server is baked into the Cloud Run image and driven live: it checks each feed’s freshness before the Arbiter rules, triggers targeted re-syncs, pauses and resumes connectors, and <strong style={{ color: 'var(--ink)' }}>creates new connectors on demand</strong> to onboard a gene once it is looked up often enough. Full CRUD on live connectors, every write gated by a human approval and logged.
               </p>
               <div style={{ display: 'flex', gap: '.4rem', flexWrap: 'wrap', marginTop: '1rem' }}>
                 {['get_connection_state', 'sync_connection', 'modify_connection', 'create_connection'].map(t => (
@@ -213,7 +213,7 @@ anchors:  6 pts → 0.90   (actionable)
           <div className="mono-tag"><span className="dash" /> Validated · 06</div>
           <h2 className="display display-mid" style={{ margin: '1rem 0 .6rem', maxWidth: '24ch' }}>Measured on the live model.</h2>
           <p className="body-lg" style={{ maxWidth: '52ch', marginBottom: '2.2rem' }}>
-            The headline result is the live Gemini Adjudicator’s judgement; the deterministic steps are validated as correctness checks. A research prototype, rigorously evaluated.
+            The headline result is the live Gemini Arbiter’s judgement; the deterministic steps are validated as correctness checks. A research prototype, rigorously evaluated.
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '1.1rem' }}>
             {metrics.map(([n, t, s]) => (

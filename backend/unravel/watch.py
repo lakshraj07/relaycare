@@ -8,7 +8,7 @@ Two entry points the frontend uses:
     trip and is safe to call on page load.
 
   - adjudicate_patient(pid): the slow, grounded pass for a single patient. Runs
-    the Gemini Pro Adjudicator over the cited ledger and returns the verdict.
+    the Gemini Pro Arbiter over the cited ledger and returns the verdict.
     Called on demand (per click), since it costs a model call.
 
 Both read the live Firestore registry and the BigQuery evidence warehouse, so
@@ -260,7 +260,7 @@ def graph_patient(pid: str, *, client=None) -> dict:
     if stars < 3:
         add("cv-caution", "Low confidence", "warning",
             meta=f"only {stars}★",
-            detail=f"This variant has only {stars} review star(s). Single-submitter or no-criteria assertions are less reliable. The Adjudicator may withhold action on low-confidence assertions.")
+            detail=f"This variant has only {stars} review star(s). Single-submitter or no-criteria assertions are less reliable. The Arbiter may withhold action on low-confidence assertions.")
         link("cv-review", "cv-caution", label="caution")
 
     # -- gnomAD branch: frequency + population detail

@@ -13,7 +13,7 @@ it reads the unified `evidence.variant_evidence` view (ClinVar anchor + gnomAD A
 The ClinVar assertion itself is deliberately NOT minted into ACMG points here:
 that would double-count, since an aggregate classification is downstream of the
 same primary evidence (the discredited PP5/BP6 path). Instead the ClinVar review
-status travels alongside as context (`review_stars`), so the Adjudicator can
+status travels alongside as context (`review_stars`), so the Arbiter can
 judge how much to trust the assertion that triggered the look. This is the seam
 where the 1-star trap lives: a lone low-star pathogenic claim with thin primary
 evidence scores as Uncertain and is withheld.
@@ -32,7 +32,7 @@ from dataclasses import dataclass, field
 
 from .acmg import EvidenceItem, Ledger, Strength
 
-PROJECT = "unravel-ra"
+PROJECT = "relaycare-ra"
 EVIDENCE_VIEW = f"{PROJECT}.evidence.variant_evidence"
 
 # The Fivetran-synced source tables the curated view unifies (the AI data plane).
@@ -188,7 +188,7 @@ def acmg_items_from_row(row: dict, *, ancestry_underrepresented: bool = False) -
 
 @dataclass
 class EvidenceContext:
-    """A ledger plus the ClinVar anchor context the Adjudicator reasons over."""
+    """A ledger plus the ClinVar anchor context the Arbiter reasons over."""
 
     ledger: Ledger
     gene_symbol: str | None = None
@@ -240,7 +240,7 @@ def build_evidence_ledger(
     """Assemble the ACMG ledger for a variant.
 
     Reads the warehouse for `key` (or uses a supplied `row`, which keeps this
-    unit-testable and lets the Watcher pass a row it already fetched). Adds any
+    unit-testable and lets the Scout pass a row it already fetched). Adds any
     family-sourced `extra` evidence (segregation, functional). Returns the
     ledger plus the ClinVar anchor context.
     """

@@ -1,6 +1,6 @@
 """Fetch gnomAD v4 (GRCh38) allele frequencies for the Lynch-syndrome genes.
 
-gnomAD population frequency is Unravel's PM2 / BS1 / BA1 evidence stream (rare or
+gnomAD population frequency is RelayCare's PM2 / BS1 / BA1 evidence stream (rare or
 absent supports pathogenic; common refutes it). The public BigQuery copy of
 gnomAD is only v2.1.1 on GRCh37, which would force a liftover against the GRCh38
 ClinVar slice. To stay GRCh38-native we pull v4 directly from the gnomAD GraphQL

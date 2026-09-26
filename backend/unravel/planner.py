@@ -1,4 +1,4 @@
-"""Resolution Planner: rank the next experiment by information value.
+"""Pathfinder: rank the next experiment by information value.
 
 The never-done core. When a variant is suggestive but short of actionable (the
 withheld trap), the question is not "is it pathogenic?" but "what is the single

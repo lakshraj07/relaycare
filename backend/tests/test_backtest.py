@@ -7,7 +7,7 @@ turns the 600-patient cohort into 600+ assertions, and pins the safety-critical
 properties (every 1-star trap is withheld; nothing that should be withheld or
 reassured is ever escalated to family recontact).
 
-The live Gemini Adjudicator is validated separately on the demo cases by
+The live Gemini Arbiter is validated separately on the demo cases by
 scripts/run_adjudication.py; here we score the auditable floor at scale, with no
 BigQuery / Firestore / LLM.
 """
@@ -50,7 +50,7 @@ else:  # keep collection working even if the fixture is absent
 
 @pytest.mark.parametrize("exp", EXPECTATIONS, ids=[e["patient_id"] for e in EXPECTATIONS])
 def test_detection_per_patient(exp):
-    """The Watcher flags exactly the patients whose evidence actually moved."""
+    """The Scout flags exactly the patients whose evidence actually moved."""
     detected = exp["patient_id"] in BY_PID
     assert detected == exp["expected_detection"], (
         f"{exp['scenario']}: expected_detection={exp['expected_detection']}, got {detected}")

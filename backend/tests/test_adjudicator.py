@@ -1,4 +1,4 @@
-"""Tests for the Adjudicator's grounding and schema (no live LLM call).
+"""Tests for the Arbiter's grounding and schema (no live LLM call).
 
 The verdict quality itself is verified live via scripts/run_adjudication.py; here
 we only check that the grounding prompt carries the facts the agent must weigh

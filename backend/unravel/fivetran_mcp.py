@@ -2,10 +2,10 @@
 
 The Fivetran track's stand-out lever is using the partner MCP server for more than
 a one-shot pull: weaving freshness checks and targeted re-syncs into the agent
-loop. Before the Adjudicator rules on a reclassification, the loop asks the
+loop. Before the Arbiter rules on a reclassification, the loop asks the
 Fivetran MCP server how fresh each evidence feed is (get_connection_details); if a
 feed is stale it can trigger a targeted re-sync (sync_connection) and the
-Adjudicator's verdict then accounts for data freshness explicitly.
+Arbiter's verdict then accounts for data freshness explicitly.
 
 This wraps the official server (github.com/fivetran/fivetran-mcp) over stdio,
 honouring its read-the-schema-first guardrail (each tool needs a confirming
@@ -33,7 +33,7 @@ from pathlib import Path
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
-PROJECT = "unravel-ra"
+PROJECT = "relaycare-ra"
 # evidence feeds we care about, keyed by the BigQuery schema the connector writes.
 # gnomad_sdk is the custom Connector-SDK connector (Python hosted on Fivetran).
 EVIDENCE_SCHEMAS = ("clinvar", "gnomad", "alphamissense", "gnomad_sdk")
@@ -291,7 +291,7 @@ def set_paused(connection_id: str, paused: bool) -> dict:
 # --- connector creation (gene onboarding) --------------------------------------
 
 DEST_GROUP = "humpback_added"   # the BigQuery destination group
-EVIDENCE_BUCKET = "unravel-ra-evidence-raw"
+EVIDENCE_BUCKET = "relaycare-ra-evidence-raw"
 
 
 def _create_connection_body(schema: str, prefix: str, table: str = "evidence") -> dict:
@@ -373,7 +373,7 @@ def trigger_resync(connection_id: str) -> dict:
 
 
 def freshness_report(feeds: list[FeedFreshness] | None = None) -> str:
-    """Human-readable freshness line for the Adjudicator's grounding."""
+    """Human-readable freshness line for the Arbiter's grounding."""
     feeds = feeds if feeds is not None else check_freshness()
     parts = []
     for f in sorted(feeds, key=lambda x: x.schema):

@@ -298,7 +298,7 @@ def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     payload = {
         "description": "ClinVar variants with genuine dated reclassification "
-                       "history, ground truth for the Unravel backtest.",
+                       "history, ground truth for the RelayCare backtest.",
         "built": "2026-06-06",
         "source": "ClinVar variant_summary + submission_summary (NCBI FTP)",
         "criteria": {"early_year": EARLY_YEAR, "late_year": LATE_YEAR,

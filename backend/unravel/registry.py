@@ -1,6 +1,6 @@
 """The FHIR R4 patient registry (Firestore), and the seeded Lynch demo cohort.
 
-Unravel watches the evidence commons on behalf of a clinic's real patients. That
+RelayCare watches the evidence commons on behalf of a clinic's real patients. That
 clinic is modelled here as a registry of FHIR R4 resources in Firestore:
 
   - Patient                 the people (proband, at-risk relatives, cohort).
@@ -9,16 +9,16 @@ clinic is modelled here as a registry of FHIR R4 resources in Firestore:
                             memory, which is what goes stale).
   - FamilyMemberHistory     the proband's pedigree.
 
-The gap Unravel closes is the distance between an Observation's *recorded*
+The gap RelayCare closes is the distance between an Observation's *recorded*
 classification and the *current* evidence. detect_reclassifications() diffs the
-two; build_evidence_ledger() + the Adjudicator decide whether the change is real
+two; build_evidence_ledger() + the Arbiter decide whether the change is real
 and actionable.
 
 The seeded cohort centres on Diane Marchetti, who carries MLH1 c.114C>G
 (p.Asn38Lys), recorded as a VUS at her 2019 colorectal-cancer work-up. ClinVar
 has since reclassified that variant to Pathogenic (3-star, expert panel), but the
 news never reached Diane's family. The cohort also contains three "silent Dianes"
-carrying the same variant, a deceased carrier (for the Steward's ethics branch),
+carrying the same variant, a deceased carrier (for the Safeguard's ethics branch),
 a 1-star "trap" carrier whose tempting variant must be withheld, and benign /
 unrelated cohort filler. The patients are a deliberately mixed, fictional cohort.
 Every variant is a real ClinVar/Lynch variant present in the evidence warehouse,
@@ -35,13 +35,13 @@ from dataclasses import dataclass, field
 
 from .evidence import VariantKey
 
-PROJECT = "unravel-ra"
+PROJECT = "relaycare-ra"
 COLLECTIONS = ("Patient", "Observation", "FamilyMemberHistory")
 
 LOINC = "http://loinc.org"
 V3_ROLE = "http://terminology.hl7.org/CodeSystem/v3-RoleCode"
-RELATIVE_OF_URL = "https://unravel.health/fhir/relative-of"
-ANCESTRY_URL = "https://unravel.health/fhir/ancestry"
+RELATIVE_OF_URL = "https://relaycare.health/fhir/relative-of"
+ANCESTRY_URL = "https://relaycare.health/fhir/ancestry"
 
 # Ancestries well represented in AlphaMissense's training data. A carrier of any
 # other ancestry triggers the predictor down-weighting (see evidence.py).
@@ -77,7 +77,7 @@ EPCAM_BENIGN = VariantSpec("2-47373967-T-C", "EPCAM", "c.344T>C", "p.Met115Thr",
 # --- FHIR builders -------------------------------------------------------------
 
 
-RECONTACT_URL = "https://unravel.health/fhir/recontact-status"
+RECONTACT_URL = "https://relaycare.health/fhir/recontact-status"
 
 
 def _patient(pid, family, given, gender, birth, *, deceased=False,
@@ -100,7 +100,7 @@ def _patient(pid, family, given, gender, birth, *, deceased=False,
         res["telecom"] = telecom
     extensions = [{"url": RECONTACT_URL, "valueString": recontact}]
     if role:
-        extensions.append({"url": "https://unravel.health/fhir/role", "valueString": role})
+        extensions.append({"url": "https://relaycare.health/fhir/role", "valueString": role})
     if relative_of:
         extensions.append({
             "url": RELATIVE_OF_URL,
@@ -216,7 +216,7 @@ def build_resources() -> dict[str, list[dict]]:
     histories.append(_family_history("fmh-mei-mother", "mei-tanaka", "MTH", "mother",
                                      deceased=True, condition="Colorectal cancer", onset_age=55))
 
-    # 3) Deceased carrier (Steward ethics branch) with a living at-risk child.
+    # 3) Deceased carrier (Safeguard ethics branch) with a living at-risk child.
     patients.append(_patient("thomas-nguyen", "Nguyen", "Thomas", "male", "1952-07-19",
                              deceased=True, role="proband",
                              conditions=["Colorectal cancer (deceased 2021)"]))

@@ -47,7 +47,7 @@ export default function PedigreeView({ patientId, cohort }: { patientId: string;
 
       {ped && (
         <div style={card}>
-          <div style={eyebrow}>Cascade map</div>
+          <div style={eyebrow}>Kinship map</div>
           <div style={{ fontSize: '.84rem', color: 'var(--muted)', marginTop: '.3rem' }}>
             The proband's variant has been reclassified. At-risk first-degree relatives should be offered counselling and
             predictive testing. Relatives with no contact route on file are the recontact gap.

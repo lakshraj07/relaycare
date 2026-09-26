@@ -7,15 +7,15 @@ predictions against the ground-truth labels.
 
 Two layers, both honest about what they measure:
 
-  1. DETECTION (the Watcher).  Runs the real `detect_reclassifications` over the
+  1. DETECTION (the Scout).  Runs the real `detect_reclassifications` over the
      cohort's synthetic warehouse state. Non-circular: it exercises the actual
      diff logic. Yields precision / recall / F1 / specificity on "did we correctly
      flag a genuine reclassification, and in the right direction."
 
   2. ACTION (the safety-floor).  A deterministic policy that encodes the
-     Adjudicator's documented decision boundary (3-4 star corroborated -> act;
+     Arbiter's documented decision boundary (3-4 star corroborated -> act;
      1-star / conflicting -> withhold; benign -> reassure; deceased actionable ->
-     ethics). This is the auditable safety floor the LLM Adjudicator must agree
+     ethics). This is the auditable safety floor the LLM Arbiter must agree
      with; the live LLM is validated separately on the demo cases by
      scripts/run_adjudication.py. Here we score the floor at scale, focusing on
      the safety-critical metrics: did it withhold on every 1-star trap, and did it
@@ -39,13 +39,13 @@ def load_cohort(path: Path = COHORT) -> dict:
     return json.loads(path.read_text())
 
 
-# --- the deterministic action safety-floor (mirrors the Adjudicator boundary) ---
+# --- the deterministic action safety-floor (mirrors the Arbiter boundary) ---
 
 
 def reference_action(direction: str, review_stars: int | None) -> str:
     """Map a detected reclassification to the safety-floor action.
 
-    Encodes the Adjudicator's instruction: a benign move is reassurance; an
+    Encodes the Arbiter's instruction: a benign move is reassurance; an
     escalation backed by a 2+ star (multiple-submitter / expert-panel) review is
     actionable; an escalation resting only on a 1-star or conflicting assertion is
     withheld pending higher-yield evidence; anything else is held conservatively.

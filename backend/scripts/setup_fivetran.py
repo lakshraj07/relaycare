@@ -1,14 +1,14 @@
-"""Reproduce Unravel's Fivetran pipeline: the BigQuery destination + the three
+"""Reproduce RelayCare's Fivetran pipeline: the BigQuery destination + the three
 evidence connectors, created through the Fivetran MCP server.
 
-Unravel's evidence commons is three Fivetran GCS->BigQuery connectors landing
+RelayCare's evidence commons is three Fivetran GCS->BigQuery connectors landing
 ClinVar, gnomAD and AlphaMissense into BigQuery, which a curated view
 (`evidence.variant_evidence`, see backend/sql/variant_evidence.sql) models into
 the AI data plane the five ADK agents query.
 
 This script is idempotent: it lists the existing connectors via the MCP and only
 creates the ones that are missing, then triggers their initial sync. It assumes
-the evidence CSVs are already staged in gs://unravel-ra-evidence-raw/<prefix>/
+the evidence CSVs are already staged in gs://relaycare-ra-evidence-raw/<prefix>/
 (see scripts/fetch_gnomad.py, fetch_alphamissense.sh, build_clinvar_groundtruth.py)
 and that a BigQuery destination already exists in the Fivetran group.
 

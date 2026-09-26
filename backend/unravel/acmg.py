@@ -1,4 +1,4 @@
-"""The calibrated Bayesian ACMG evidence engine, Unravel's science spine.
+"""The calibrated Bayesian ACMG evidence engine, RelayCare's science spine.
 
 This module turns a ledger of cited ACMG/AMP evidence into a *calibrated
 probability of pathogenicity*, so the VUS meter shows a real posterior rather
@@ -30,7 +30,7 @@ fall out as posterior bands (Likely Pathogenic at 6 points is ~0.90, Pathogenic
 at 10 points is ~0.99, and so on).
 
 This is deliberately pure, deterministic plumbing: it computes a probability
-from evidence the Adjudicator has already decided to admit. The clinical
+from evidence the Arbiter has already decided to admit. The clinical
 judgment (which evidence to trust, when to withhold) lives in the agent layer;
 this module just makes that judgment quantitative and auditable.
 """
@@ -78,7 +78,7 @@ class Direction(Enum):
 # code -> (direction, default strength). Strength can be overridden per evidence
 # item (e.g. ClinGen recommends AlphaMissense as PP3 at up to Strong; functional
 # assays are often down-weighted to PS3_Moderate). Overrides are how the
-# Adjudicator's calibrated weighting enters the math.
+# Arbiter's calibrated weighting enters the math.
 _CRITERIA: dict[str, tuple[Direction, Strength]] = {
     # Pathogenic, very strong
     "PVS1": (Direction.PATHOGENIC, Strength.VERY_STRONG),
@@ -259,7 +259,7 @@ class PosteriorResult:
         """Additional pathogenic points needed to reach the actionable line.
 
         Zero once actionable. This is the raw input to the gap-to-actionable
-        display and the Resolution Planner's information-value ranking.
+        display and the Pathfinder's information-value ranking.
         """
         return max(0, ACTIONABLE_POINTS - self.points)
 

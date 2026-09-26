@@ -1,4 +1,4 @@
-# Unravel API: the ADK agents + FastAPI server, for Cloud Run.
+# RelayCare API: the ADK agents + FastAPI server, for Cloud Run.
 FROM python:3.12-slim
 
 ENV PYTHONUNBUFFERED=1 \

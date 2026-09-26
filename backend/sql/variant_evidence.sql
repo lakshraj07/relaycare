@@ -1,4 +1,4 @@
--- Unravel: the curated "AI data plane".
+-- RelayCare: the curated "AI data plane".
 --
 -- evidence.variant_evidence unifies the three Fivetran-synced source tables
 -- (clinvar, gnomad.allele_frequency, alphamissense.scores) into one calibrated,
@@ -7,13 +7,13 @@
 -- them into the single table the agents reason over.
 --
 -- Recreate with:  bq query --use_legacy_sql=false --view < this file
--- (or CREATE OR REPLACE VIEW `unravel-ra.evidence.variant_evidence` AS ...)
+-- (or CREATE OR REPLACE VIEW `relaycare-ra.evidence.variant_evidence` AS ...)
 
 WITH am AS (
   SELECT
     chromosome, position, reference_allele, alternate_allele,
     am_pathogenicity, am_class
-  FROM `unravel-ra.alphamissense.scores`
+  FROM `relaycare-ra.alphamissense.scores`
   QUALIFY ROW_NUMBER() OVER (
     PARTITION BY chromosome, position, reference_allele, alternate_allele
     ORDER BY am_pathogenicity DESC
@@ -23,7 +23,7 @@ gnomad AS (
   SELECT
     chromosome, position, reference_allele, alternate_allele,
     allele_count, allele_number, allele_frequency
-  FROM `unravel-ra.gnomad.allele_frequency`
+  FROM `relaycare-ra.gnomad.allele_frequency`
   QUALIFY ROW_NUMBER() OVER (
     PARTITION BY chromosome, position, reference_allele, alternate_allele
     ORDER BY allele_frequency DESC
@@ -58,7 +58,7 @@ SELECT
   g.allele_number                                  AS gnomad_an,
   am.am_pathogenicity,
   am.am_class
-FROM `unravel-ra.clinvar.variant_summary` c
+FROM `relaycare-ra.clinvar.variant_summary` c
 LEFT JOIN gnomad g
   ON c.chromosome           = g.chromosome
  AND c.position_vcf         = g.position

@@ -18,8 +18,8 @@ import io
 import json
 import urllib.request
 
-PROJECT = "unravel-ra"
-BUCKET = "unravel-ra-evidence-raw"
+PROJECT = "relaycare-ra"
+BUCKET = "relaycare-ra-evidence-raw"
 GNOMAD_API = "https://gnomad.broadinstitute.org/api"
 ONBOARD_THRESHOLD = 3                              # live lookups before recommending
 CORE_GENES = {"MLH1", "MSH2", "MSH6", "PMS2", "EPCAM"}   # already in the warehouse

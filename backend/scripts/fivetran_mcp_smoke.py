@@ -1,4 +1,4 @@
-"""Smoke-test the Fivetran MCP server against the live unravel account.
+"""Smoke-test the Fivetran MCP server against the live relaycare account.
 
 This proves the "deep MCP" gate: the agent layer can drive Fivetran through the
 official MCP server (github.com/fivetran/fivetran-mcp), not just the raw REST
@@ -16,10 +16,10 @@ exactly how the ADK agent will call these tools on Day 4.
 Writes (sync_connection / resync_connection) are intentionally left disabled
 (FIVETRAN_ALLOW_WRITES unset) so the smoke test never triggers a real sync; we
 only confirm those write tools are registered. Mid-loop targeted re-sync wiring
-lands Day 4, inside the Adjudicator.
+lands Day 4, inside the Arbiter.
 
 Credentials are read at runtime from Secret Manager (fivetran-api-key /
-fivetran-api-secret in project unravel-ra); nothing secret is stored in the repo.
+fivetran-api-secret in project relaycare-ra); nothing secret is stored in the repo.
 
 Run:  cd backend && PATH="$PWD/.venv/bin:$PATH" .venv/bin/python scripts/fivetran_mcp_smoke.py
 """
@@ -35,7 +35,7 @@ import subprocess
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
-PROJECT = "unravel-ra"
+PROJECT = "relaycare-ra"
 SYNC_TOOLS = {"sync_connection", "resync_connection"}
 READ_TOOLS = ("list_connections", "get_connection_details", "get_connection_schema_config")
 _SCHEMA_PATH = re.compile(r"(open-api-definitions/[^'\"]+\.json)")

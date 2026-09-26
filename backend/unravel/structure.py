@@ -10,7 +10,7 @@ concerning than the same score in an otherwise tolerant region; that spatial
 context is the structural argument.
 
 Deterministic supporting evidence, never the classifier (per the ACMG framing):
-this feeds the viewer and informs the Adjudicator's narrative, it does not set
+this feeds the viewer and informs the Arbiter's narrative, it does not set
 the posterior. Per-residue AlphaMissense comes from
 scripts/fetch_alphamissense_residue.sh; the structure is fetched and cached from
 AlphaFold DB. The structure_url is public so the React viewer can load the model
@@ -35,7 +35,7 @@ _STAGING = Path(__file__).resolve().parent.parent / "_staging"
 _PACKAGED_AM = Path(__file__).resolve().parent / "data" / "alphamissense_residue.csv"
 _RESIDUE_AM = _PACKAGED_AM if _PACKAGED_AM.exists() else _STAGING / "alphamissense_residue.csv"
 # AlphaFold models cache to _staging locally, or a writable temp dir on Cloud Run.
-_AF_CACHE = (_STAGING / "alphafold") if _STAGING.exists() else Path(tempfile.gettempdir()) / "unravel-alphafold"
+_AF_CACHE = (_STAGING / "alphafold") if _STAGING.exists() else Path(tempfile.gettempdir()) / "relaycare-alphafold"
 _AF_API_URL = "https://alphafold.ebi.ac.uk/api/prediction/{uniprot}"
 _AF_ENTRY_URL = "https://alphafold.ebi.ac.uk/entry/{uniprot}"
 

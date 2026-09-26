@@ -1,4 +1,4 @@
-"""The Adjudicator: Unravel's grounded, cited verdict on a reclassification.
+"""The Arbiter: RelayCare's grounded, cited verdict on a reclassification.
 
 This is the moat. Detection and the posterior are plumbing; the hard call is
 clinical judgment over discordant, uneven-quality evidence, and that is what a
@@ -38,11 +38,11 @@ from .agent import MODEL_PRO
 from .detection import Reclassification
 from .evidence import EvidenceContext
 
-APP = "unravel-adjudicator"
+APP = "relaycare-adjudicator"
 
 
 class Verdict(BaseModel):
-    """The Adjudicator's grounded decision (structured output)."""
+    """The Arbiter's grounded decision (structured output)."""
 
     triage: Literal["cold", "warm", "hot", "actionable"] = Field(
         description="Clinical heat: cold (benign/no concern), warm (uncertain, "
@@ -73,7 +73,7 @@ class Adjudication:
 
 
 _INSTRUCTION = (
-    "You are the Unravel Adjudicator, a clinical molecular geneticist reviewing a "
+    "You are the RelayCare Arbiter, a clinical molecular geneticist reviewing a "
     "variant whose classification in a clinic's patient registry may be out of "
     "date. You are given the current evidence assembled from the public commons "
     "(each line cited with its ACMG/AMP criterion and source), the ClinVar review "
@@ -128,7 +128,7 @@ class AdjudicationInput:
 
 def build_adjudicator() -> LlmAgent:
     return LlmAgent(
-        name="unravel_adjudicator",
+        name="relaycare_adjudicator",
         model=MODEL_PRO,
         description="Grounded, cited verdict on a variant reclassification.",
         instruction=_INSTRUCTION,

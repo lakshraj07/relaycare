@@ -3,17 +3,17 @@
 A genuine multi-agent system (not one prompt in a trench coat): five LlmAgents on
 Gemini, orchestrated with the ADK workflow agents the whitepapers prescribe.
 
-    SequentialAgent  unravel_loop
+    SequentialAgent  relaycare_loop
       |
-      +-- Watcher (flash-lite)        triage the change, is it worth escalating?
-      +-- Adjudicator (pro, the moat) weigh review quality, WITHHOLD weak flips
+      +-- Scout (flash-lite)          detect the change and decide whether to escalate
+      +-- Arbiter (pro, the moat)    weigh review quality and WITHHOLD weak flips
       +-- ParallelAgent  fan_out      (fan-out / gather, runs concurrently)
-            +-- Resolution Planner (pro)   the highest-yield next experiment
-            +-- Cascade Coordinator (pro)  draft the family recontact
-            +-- Steward (pro)              deceased-proband ethics + give-back
+            +-- Pathfinder (pro)      rank the highest-yield next experiment
+            +-- Kinship (pro)         draft the family recontact
+            +-- Safeguard (pro)       handle ethics + give-back
 
 All five share one Session: each agent reads the prior agents' outputs from shared
-state (the Adjudicator's verdict fans out to the three specialists) and writes its
+state (the Arbiter's verdict fans out to the three specialists) and writes its
 own via output_key. The deterministic work lives in tools.py (the hands); these
 agents do the judgement (the brain). Draft-only is the human-in-the-loop gate.
 """
@@ -33,17 +33,17 @@ from google.genai import types
 from . import tools as T
 from .agent import MODEL_FLASH, MODEL_PRO
 
-APP = "unravel-loop"
+APP = "relaycare-loop"
 
 
 # --- the five agents -----------------------------------------------------------
 
-watcher = LlmAgent(
-    name="watcher",
+scout = LlmAgent(
+    name="scout",
     model=MODEL_FLASH,
     description="Evidence-surveillance triage of a variant reclassification.",
     instruction=(
-        "You are the Unravel Watcher. The patient under review is {patient_id}.\n"
+        "You are the RelayCare Scout. The patient under review is {patient_id}.\n"
         "Call lookup_reclassification with that patient_id, and optionally "
         "check_feed_freshness. Decide whether the detected change is worth "
         "escalating to clinical adjudication and say why in one sentence.\n"
@@ -54,12 +54,12 @@ watcher = LlmAgent(
     output_key="watch",
 )
 
-adjudicator = LlmAgent(
-    name="adjudicator",
+arbiter = LlmAgent(
+    name="arbiter",
     model=MODEL_PRO,
     description="The grounded, cited verdict on the reclassification (the moat).",
     instruction=(
-        "You are the Unravel Adjudicator, a clinical molecular geneticist. The "
+        "You are the RelayCare Arbiter, a clinical molecular geneticist. The "
         "patient is {patient_id}. Call assemble_evidence with that patient_id to "
         "get the cited ACMG ledger and the calibrated posterior (treat the "
         "posterior as fact; never invent numbers).\n\n"
@@ -82,13 +82,13 @@ adjudicator = LlmAgent(
     output_key="verdict",
 )
 
-resolution_planner = LlmAgent(
-    name="resolution_planner",
+pathfinder = LlmAgent(
+    name="pathfinder",
     model=MODEL_PRO,
     description="Ranks the next experiment by information value.",
     instruction=(
-        "You are the Unravel Resolution Planner for patient {patient_id}. The "
-        "Adjudicator's verdict was: {verdict}.\n"
+        "You are the RelayCare Pathfinder for patient {patient_id}. The "
+        "Arbiter's verdict was: {verdict}.\n"
         "Call rank_next_experiments with the patient_id. If the variant is already "
         "actionable, say so and that no resolving experiment is needed. Otherwise "
         "recommend the SINGLE highest-yield next experiment, the one that crosses "
@@ -101,13 +101,13 @@ resolution_planner = LlmAgent(
     output_key="plan",
 )
 
-cascade_coordinator = LlmAgent(
-    name="cascade_coordinator",
+kinship = LlmAgent(
+    name="kinship",
     model=MODEL_PRO,
     description="Drafts clinician-gated family recontact for an actionable variant.",
     instruction=(
-        "You are the Unravel Cascade Coordinator for patient {patient_id}. The "
-        "Adjudicator's verdict was: {verdict}.\n"
+        "You are the RelayCare Kinship agent for patient {patient_id}. The "
+        "Arbiter's verdict was: {verdict}.\n"
         "Only act if the verdict is actionable and NOT withheld. If so, call "
         "find_family and write, for each LIVING carrier and at-risk relative, a "
         "short CLINICIAN-FACING recommendation (third person) for the care team to "
@@ -124,12 +124,12 @@ cascade_coordinator = LlmAgent(
     output_key="cascade",
 )
 
-steward = LlmAgent(
-    name="steward",
+safeguard = LlmAgent(
+    name="safeguard",
     model=MODEL_PRO,
     description="Deceased-proband ethics routing and the ClinVar give-back.",
     instruction=(
-        "You are the Unravel Steward for patient {patient_id}. Call "
+        "You are the RelayCare Safeguard for patient {patient_id}. Call "
         "steward_assessment. For any DECEASED carrier, route to an ethics / "
         "next-of-kin consent pathway, never a direct letter to the deceased, and "
         "note their living relatives who may be offered counselling. If the variant "
@@ -149,13 +149,13 @@ steward = LlmAgent(
 fan_out = ParallelAgent(
     name="fan_out",
     description="Fan out the adjudicated case to three specialists, gather results.",
-    sub_agents=[resolution_planner, cascade_coordinator, steward],
+    sub_agents=[pathfinder, kinship, safeguard],
 )
 
 root_agent = SequentialAgent(
-    name="unravel_loop",
-    description="Watch -> Adjudicate -> fan out (plan, cascade, steward).",
-    sub_agents=[watcher, adjudicator, fan_out],
+    name="relaycare_loop",
+    description="Scout -> Arbiter -> fan out (Pathfinder, Kinship, Safeguard).",
+    sub_agents=[scout, arbiter, fan_out],
 )
 
 
@@ -177,7 +177,7 @@ def _parse(value) -> dict | str | None:
 
 
 def _fhir_drafts(cascade) -> list[dict]:
-    """Wrap the Cascade agent's clinician-facing drafts in FHIR Communication
+    """Wrap the Kinship agent's clinician-facing drafts in FHIR Communication
     envelopes (intent: proposal, status: draft), the deterministic safety wrapper
     around the agent-written content. Nothing is sent; a clinician reviews."""
     out: list[dict] = []
@@ -227,17 +227,17 @@ def run_loop(patient_id: str) -> dict:
 
 # step metadata for the live stream: agent name -> (UI node, state key)
 _STEP = {
-    "watcher": ("Watcher", "watch"),
-    "adjudicator": ("Adjudicator", "verdict"),
-    "resolution_planner": ("Planner", "plan"),
-    "cascade_coordinator": ("Cascade", "cascade"),
-    "steward": ("Steward", "steward"),
+    "scout": ("Scout", "watch"),
+    "arbiter": ("Arbiter", "verdict"),
+    "pathfinder": ("Pathfinder", "plan"),
+    "kinship": ("Kinship", "cascade"),
+    "safeguard": ("Safeguard", "steward"),
 }
 
 
 async def run_loop_events_async(patient_id: str):
     """Run the loop and yield one event per agent AS IT COMPLETES, so the UI can
-    light up each node in real time (Watcher -> Adjudicator -> the parallel
+    light up each node in real time (Scout -> Arbiter -> the parallel
     fan-out) instead of waiting for the whole run."""
     session_service = InMemorySessionService()
     await session_service.create_session(
@@ -262,9 +262,9 @@ async def run_loop_events_async(patient_id: str):
         node, key = _STEP[author]
         data = _parse(text)
         payload = {"agent": author, "node": node, "key": key, "data": data}
-        if author == "cascade_coordinator":
+        if author == "kinship":
             payload["fhir_drafts"] = _fhir_drafts(data)
-        if author == "adjudicator" and isinstance(data, dict):
+        if author == "arbiter" and isinstance(data, dict):
             from . import audit
             audit.log("agent", f"{patient_id}: {data.get('triage')} / {data.get('action')}"
                       f"{' (withheld)' if data.get('withheld') else ''}",

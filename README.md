@@ -34,19 +34,26 @@ The dashboard includes a watchlist, evidence view, pedigree, knowledge graph, st
 - Nothing is sent to a patient automatically.
 - This is a research prototype, not a diagnostic device or clinically validated service.
 
-## How it works
+## Architecture
 
-The repository contains a React and TypeScript frontend, a FastAPI backend, and the evidence and evaluation code behind the workflow.
+RelayCare is organized as a five-agent graph, not a single assistant prompt. A Google ADK `SequentialAgent` runs Scout and Arbiter in order, then a `ParallelAgent` fans the same case out to Pathfinder, Kinship, and Safeguard. Every agent reads the shared session state and writes a bounded result for the next stage.
 
-The agent flow has five responsibilities:
+| Agent | Responsibility | Tool boundary |
+| --- | --- | --- |
+| **Scout** | Detects meaningful evidence movement and checks feed freshness. | `lookup_reclassification`, `check_feed_freshness` |
+| **Arbiter** | Builds the cited ACMG evidence ledger, weighs review quality, and withholds weak flips. | `assemble_evidence` |
+| **Pathfinder** | Ranks the next highest-yield experiment when the evidence is not yet actionable. | `rank_next_experiments` |
+| **Kinship** | Finds carriers and at-risk relatives and drafts clinician-facing recontact. | `find_family` |
+| **Safeguard** | Routes ethics-sensitive cases and prepares a ClinVar give-back draft. | `steward_assessment` |
 
-1. Watch for a possible reclassification.
-2. Review the evidence and decide whether the change is reliable enough to surface.
-3. Suggest the next useful experiment or review step.
-4. Find the patient and relatives who may be affected.
-5. Route sensitive cases, including deceased-proband cases, to an appropriate human pathway.
+The deterministic `FunctionTool` layer performs auditable data work; the Gemini agents make the bounded judgments. Outputs are wrapped as draft FHIR resources with `intent: proposal`, and a clinician reviews before anything is sent. The backend also includes adapters for Fivetran MCP, BigQuery, Firestore, FHIR R4, ClinVar, gnomAD, AlphaMissense, and AlphaFold.
 
-The current backend includes adapters for Gemini, Fivetran MCP, BigQuery, Firestore, FHIR R4, ClinVar, gnomAD, AlphaMissense, and AlphaFold. The frontend can be deployed separately from the API.
+## How the demo moves through the graph
+
+1. Scout spots a possible reclassification in the evidence commons.
+2. Arbiter checks the cited evidence and decides whether the change is reliable enough to surface.
+3. Pathfinder, Kinship, and Safeguard run concurrently over the Arbiter's verdict.
+4. RelayCare returns a reviewable evidence trail, next-step recommendation, family pathway, and ethics/give-back branch.
 
 ## Run the frontend locally
 

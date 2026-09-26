@@ -18,7 +18,7 @@ Scenario mix (the controlled cohort, per the evaluation strategy):
   1-star trap (tempting flip -> withhold)          ~5%
   unchanged (stable, true negative)               ~65%
 Overlays applied on top:
-  deceased proband (actionable -> Steward ethics)  ~6%
+  deceased proband (actionable -> Safeguard ethics)  ~6%
   multi-family cascade (carrier + at-risk kin)    ~30% of actionable carriers
 Ancestry is assigned from a diverse set and flagged for AlphaMissense
 under-representation, to support the ancestry-aware predictor down-weighting
@@ -70,7 +70,7 @@ ANCESTRIES = {
 }
 RELATIONSHIPS = [("sister", "female"), ("brother", "male"), ("daughter", "female"),
                  ("son", "male"), ("mother", "female"), ("maternal aunt", "female")]
-ANCESTRY_URL = "https://unravel.health/fhir/ancestry"
+ANCESTRY_URL = "https://relaycare.health/fhir/ancestry"
 
 
 def parse_hgvs(name: str) -> tuple[str, str]:

@@ -1,11 +1,11 @@
-"""Live Adjudicator verification on the demo cases.
+"""Live Arbiter verification on the demo cases.
 
 Runs the full chain for chosen patients: detect_reclassifications -> the patient's
 Reclassification -> build_evidence_ledger -> adjudicate (Gemini 3.1 Pro). Prints
 the deterministic posterior and the grounded verdict side by side.
 
 The decisive demo: Diane (HERO, 3-star expert panel) and John (TRAP, 1-star
-conflicting) carry the SAME molecular posterior, yet the Adjudicator should fire
+conflicting) carry the SAME molecular posterior, yet the Arbiter should fire
 actionable on Diane and withhold on John, purely on review quality.
 
 Run:  cd backend && PYTHONPATH=. .venv/bin/python scripts/run_adjudication.py

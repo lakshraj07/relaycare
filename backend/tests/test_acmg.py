@@ -170,7 +170,7 @@ def test_warm_variant_is_not_yet_actionable():
 
 
 def test_segregation_tips_warm_variant_over_the_line():
-    # The Resolution Planner's next-best-evidence call: sister co-segregation,
+    # The Pathfinder's next-best-evidence call: sister co-segregation,
     # upgradeable to Strong, is the single move that makes the variant actionable.
     before = score_posterior(_warm_ledger())
     after = score_posterior(
