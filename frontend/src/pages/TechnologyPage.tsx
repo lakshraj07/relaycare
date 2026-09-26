@@ -193,7 +193,7 @@ export default function TechnologyPage() {
               never as the classifier, and is <strong style={{ color: 'var(--ink)' }}>down-weighted a tier</strong> for carriers of under-represented ancestries to mitigate known predictor bias.
             </p>
             <div className="card" style={{ padding: '1.3rem 1.4rem', background: 'var(--paper)' }}>
-              <div className="mono-tag" style={{ color: 'var(--faint)', marginBottom: '.8rem' }}>backend/unravel/acmg.py</div>
+              <div className="mono-tag" style={{ color: 'var(--faint)', marginBottom: '.8rem' }}>backend/relaycare/acmg.py</div>
               <pre className="mono" style={{ fontSize: '.74rem', color: 'var(--ink2)', lineHeight: 1.7, margin: 0, whiteSpace: 'pre-wrap' }}>{`Posterior = (Prior · OddsPath)
           / (1 + Prior · (OddsPath − 1))
 

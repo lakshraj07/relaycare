@@ -12,7 +12,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from unravel import registry
+from relaycare import registry
 
 SNAPSHOT = Path(__file__).resolve().parent.parent / "_staging" / "registry_snapshot.json"
 

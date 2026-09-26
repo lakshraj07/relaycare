@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import asyncio
 
-from unravel.fivetran_mcp import (
+from relaycare.fivetran_mcp import (
     DEST_GROUP, EVIDENCE_BUCKET, create_gcs_connector, mcp_session, trigger_resync,
 )
 

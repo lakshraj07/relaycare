@@ -19,7 +19,7 @@ from pathlib import Path
 
 import pytest
 
-from unravel.detection import detect_reclassifications
+from relaycare.detection import detect_reclassifications
 
 # Import the backtest module from backend/eval without shadowing the `eval` builtin.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "eval"))

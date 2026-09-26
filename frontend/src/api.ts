@@ -191,10 +191,23 @@ async function detail(res: Response): Promise<string> {
 }
 
 export async function getCohort(): Promise<CohortRow[]> {
-  const res = await fetch(`${BASE}/cohort`);
-  if (!res.ok) throw new Error(await detail(res));
-  const data = await res.json();
-  return data.cohort;
+  // The public demo is static by design. Only a separately hosted backend
+  // opts into the live route; Vercel never probes its own SPA rewrite.
+  if (API_ROOT) {
+    try {
+      const res = await fetch(`${BASE}/cohort`);
+      const type = res.headers.get('content-type') || '';
+      if (res.ok && type.includes('application/json')) {
+        const data = await res.json();
+        if (Array.isArray(data.cohort)) return data.cohort;
+      }
+    } catch {
+      // The public watchlist remains usable without the optional API.
+    }
+  }
+  const demo = await fetch('/demo-cohort.json');
+  if (!demo.ok) throw new Error('demo cohort unavailable');
+  return demo.json();
 }
 
 // --- the real five-agent ADK loop (Scout -> Arbiter -> fan-out) ----------------

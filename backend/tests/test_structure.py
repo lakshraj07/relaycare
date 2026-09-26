@@ -9,8 +9,8 @@ from pathlib import Path
 
 import pytest
 
-from unravel import structure
-from unravel.structure import parse_residue, structural_context
+from relaycare import structure
+from relaycare.structure import parse_residue, structural_context
 
 
 def test_parse_residue():

@@ -6,7 +6,7 @@ layer that blocks empty, over-long and prompt-injection inputs before the model.
 
 import asyncio
 
-from unravel.assistant import _input_guard, answer_async, MAX_QUESTION_CHARS
+from relaycare.assistant import _input_guard, answer_async, MAX_QUESTION_CHARS
 
 
 def test_empty_question_is_guided_not_passed():

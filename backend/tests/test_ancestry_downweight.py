@@ -9,10 +9,10 @@ posterior is lower because AlphaMissense is down-weighted for her ancestry.
 
 from __future__ import annotations
 
-from unravel import registry
-from unravel.acmg import Strength, score_posterior
-from unravel.evidence import acmg_items_from_row, build_evidence_ledger
-from unravel.registry import HERO
+from relaycare import registry
+from relaycare.acmg import Strength, score_posterior
+from relaycare.evidence import acmg_items_from_row, build_evidence_ledger
+from relaycare.registry import HERO
 
 # A warehouse row for an AlphaMissense-strong, gnomAD-absent variant (Diane's HERO).
 ROW = {"gene_symbol": "MLH1", "gnomad_af": None,

@@ -43,8 +43,8 @@ import random
 import re
 from pathlib import Path
 
-from unravel import registry
-from unravel.registry import VariantSpec
+from relaycare import registry
+from relaycare.registry import VariantSpec
 
 GROUND_TRUTH = Path(__file__).resolve().parent.parent / "eval" / "clinvar_reclassification_groundtruth.json"
 OUT_FILE = Path(__file__).resolve().parent.parent / "eval" / "synthetic_cohort.json"
@@ -298,7 +298,7 @@ class Builder:
         return {
             "description": "Synthetic FHIR cohort carrying real ClinVar variants with "
                            "genuine reclassification history. Self-describing backtest fixture.",
-            "built": "2026-06-06",
+            "built": "reproducible fixture",
             "seed": SEED,
             "counts": {
                 "index_patients": len(self.expectations),

@@ -8,8 +8,8 @@ withheld until family segregation tips it over.
 
 import pytest
 
-from unravel.acmg import Band, EvidenceItem, Strength, score_posterior
-from unravel.evidence import (
+from relaycare.acmg import Band, EvidenceItem, Strength, score_posterior
+from relaycare.evidence import (
     VariantKey,
     acmg_items_from_row,
     build_evidence_ledger,
@@ -108,7 +108,7 @@ def test_family_segregation_tips_trap_over():
 def test_missing_variant_returns_not_found(monkeypatch):
     # Warehouse miss AND live miss -> genuinely not found. Mock the live path so
     # the unit test stays offline.
-    import unravel.live_evidence as live
+    import relaycare.live_evidence as live
     monkeypatch.setattr(live, "fetch_live_row", lambda key: None)
     ctx = build_evidence_ledger(VariantKey("3", 1, "A", "T"), row=None,
                                 client=_NoClient())
@@ -119,7 +119,7 @@ def test_missing_variant_returns_not_found(monkeypatch):
 def test_warehouse_miss_falls_back_to_live(monkeypatch):
     # An out-of-coverage variant (warehouse miss) is served live from the public
     # commons, tagged with provenance, and scores through the same engine.
-    import unravel.live_evidence as live
+    import relaycare.live_evidence as live
     monkeypatch.setattr(live, "fetch_live_row", lambda key: {
         "gene_symbol": "BRCA1", "clinical_significance": "Likely pathogenic",
         "review_stars": 2, "gnomad_af": None,

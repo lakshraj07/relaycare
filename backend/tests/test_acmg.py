@@ -13,7 +13,7 @@ import math
 
 import pytest
 
-from unravel.acmg import (
+from relaycare.acmg import (
     ACTIONABLE_POINTS,
     PRIOR_P,
     Band,

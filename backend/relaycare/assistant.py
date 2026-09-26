@@ -29,7 +29,7 @@ MAX_QUESTION_CHARS = 600
 
 # --- the knowledge pack: what the assistant is allowed to ground "how/why" answers on ---
 KNOWLEDGE = """\
-ABOUT UNRAVEL
+ABOUT RELAYCARE
 RelayCare is a variant-reclassification surveillance system. A "variant of uncertain
 significance" (VUS) is a genetic change not yet classified as harmful or harmless.
 When the world's evidence later reclassifies a VUS, no system carries that update back

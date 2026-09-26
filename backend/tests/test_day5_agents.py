@@ -1,6 +1,6 @@
 """Unit tests for the deterministic tool-logic behind the agents.
 
-The five agents themselves are real Gemini LlmAgents (unravel/agents.py), validated
+The five agents themselves are real Gemini LlmAgents (relaycare/agents.py), validated
 live by scripts/run_adjudication.py and eval/adjudicator_eval.py. This file covers
 the auditable deterministic logic they call as tools, the Pathfinder's
 information-value math (planner.plan_next_evidence) and the watch helpers, offline
@@ -9,11 +9,11 @@ via the pure demo registry (no BigQuery / Firestore / LLM).
 
 from __future__ import annotations
 
-from unravel import registry, watch
-from unravel.acmg import Ledger, Strength
-from unravel.evidence import EvidenceContext
-from unravel.planner import plan_next_evidence
-from unravel.registry import HERO
+from relaycare import registry, watch
+from relaycare.acmg import Ledger, Strength
+from relaycare.evidence import EvidenceContext
+from relaycare.planner import plan_next_evidence
+from relaycare.registry import HERO
 
 
 def _trap_ctx() -> EvidenceContext:

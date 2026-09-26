@@ -28,10 +28,10 @@ from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")  # Vertex config
 
-from unravel.acmg import Ledger, Strength, score_posterior  # noqa: E402
-from unravel.adjudicator import adjudicate, build_adjudicator  # noqa: E402
-from unravel.detection import Reclassification  # noqa: E402
-from unravel.evidence import EvidenceContext, VariantKey  # noqa: E402
+from relaycare.acmg import Ledger, Strength, score_posterior  # noqa: E402
+from relaycare.adjudicator import adjudicate, build_adjudicator  # noqa: E402
+from relaycare.detection import Reclassification  # noqa: E402
+from relaycare.evidence import EvidenceContext, VariantKey  # noqa: E402
 
 OUT_MD = Path(__file__).resolve().parent / "adjudicator_eval.md"
 

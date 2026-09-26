@@ -6,10 +6,10 @@ we only check that the grounding prompt carries the facts the agent must weigh
 cases) and that the structured Verdict parses.
 """
 
-from unravel.acmg import Band
-from unravel.adjudicator import Verdict, build_adjudicator, grounding_prompt
-from unravel.detection import Reclassification
-from unravel.evidence import VariantKey, build_evidence_ledger
+from relaycare.acmg import Band
+from relaycare.adjudicator import Verdict, build_adjudicator, grounding_prompt
+from relaycare.detection import Reclassification
+from relaycare.evidence import VariantKey, build_evidence_ledger
 
 
 def _reclass(patient, gid, hgvs, current, stars):

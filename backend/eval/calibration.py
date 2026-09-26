@@ -27,8 +27,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from unravel.acmg import Ledger, posterior_at, score_posterior
-from unravel.evidence import EVIDENCE_VIEW, acmg_items_from_row
+from relaycare.acmg import Ledger, posterior_at, score_posterior
+from relaycare.evidence import EVIDENCE_VIEW, acmg_items_from_row
 
 OUT_MD = Path(__file__).resolve().parent / "calibration.md"
 OUT_SVG = Path(__file__).resolve().parent / "calibration_curve.svg"

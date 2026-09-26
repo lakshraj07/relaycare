@@ -30,7 +30,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from unravel.detection import detect_reclassifications
+from relaycare.detection import detect_reclassifications
 
 COHORT = Path(__file__).resolve().parent / "synthetic_cohort.json"
 

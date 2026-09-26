@@ -299,7 +299,7 @@ def main() -> None:
     payload = {
         "description": "ClinVar variants with genuine dated reclassification "
                        "history, ground truth for the RelayCare backtest.",
-        "built": "2026-06-06",
+        "built": "reproducible fixture",
         "source": "ClinVar variant_summary + submission_summary (NCBI FTP)",
         "criteria": {"early_year": EARLY_YEAR, "late_year": LATE_YEAR,
                      "genes": sorted(GENES)},

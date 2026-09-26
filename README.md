@@ -48,6 +48,8 @@ RelayCare is organized as a five-agent graph, not a single assistant prompt. A G
 
 The deterministic `FunctionTool` layer performs auditable data work; the Gemini agents make the bounded judgments. Outputs are wrapped as draft FHIR resources with `intent: proposal`, and a clinician reviews before anything is sent. The backend also includes adapters for Fivetran MCP, BigQuery, Firestore, FHIR R4, ClinVar, gnomAD, AlphaMissense, and AlphaFold.
 
+The public dashboard loads its watchlist from `frontend/public/demo-cohort.json`, a small synthetic fixture checked into the site. That keeps the hackathon demo reliable and prevents the public page from depending on a private warehouse or an exposed API route. The FastAPI service remains available for local development and separate deployments, but it is optional for the public walkthrough.
+
 ## How the demo moves through the graph
 
 1. Scout spots a possible reclassification in the evidence commons.

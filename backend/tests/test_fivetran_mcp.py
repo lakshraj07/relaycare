@@ -4,8 +4,8 @@ The live MCP path (freshness read + targeted re-sync) is exercised via the loop
 and the smoke test; here we cover the staleness math and the report formatting.
 """
 
-from unravel import fivetran_mcp as ftm
-from unravel.fivetran_mcp import FeedFreshness
+from relaycare import fivetran_mcp as ftm
+from relaycare.fivetran_mcp import FeedFreshness
 
 
 def test_hours_since_parses_fivetran_timestamp():

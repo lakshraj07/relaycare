@@ -10,7 +10,7 @@ Real endpoints, backed by the live engine:
   GET  /api/structural?gene=&hgvs_p=    AlphaFold + AlphaMissense 3D cluster
   POST /api/run-watch?year=<y>          legacy time-machine stub (frontend scrubber)
 
-Run (from backend/, with PYTHONPATH so `unravel` imports):
+Run (from backend/, with PYTHONPATH so `relaycare` imports):
     PYTHONPATH=. .venv/bin/uvicorn server:app --reload --port 8000
 """
 
@@ -44,7 +44,7 @@ def health() -> dict[str, str]:
 @app.get("/api/cohort")
 def cohort() -> dict:
     """Real cohort overview: detection + ledger + posterior for each carrier."""
-    from unravel.watch import cohort_overview
+    from relaycare.watch import cohort_overview
     try:
         return {"cohort": cohort_overview()}
     except Exception as e:  # surface a readable error to the UI
@@ -56,7 +56,7 @@ def run_loop(patient: str) -> dict:
     """Run the full five-agent ADK loop on one patient (the real multi-agent
     flow: Scout -> Arbiter -> parallel fan-out of Pathfinder/Kinship/Safeguard,
     sharing one Session). Slow, on demand; returns every agent's output."""
-    from unravel.agents import run_loop as _run
+    from relaycare.agents import run_loop as _run
     try:
         return _run(patient)
     except Exception as e:
@@ -67,7 +67,7 @@ def run_loop(patient: str) -> dict:
 async def run_loop_stream(patient: str):
     """Stream the five-agent loop as Server-Sent Events, one per agent as it
     completes, so the UI lights up node by node in real time."""
-    from unravel.agents import run_loop_events_async
+    from relaycare.agents import run_loop_events_async
 
     async def gen():
         try:
@@ -85,7 +85,7 @@ async def run_loop_stream(patient: str):
 @app.get("/api/pedigree")
 def pedigree(patient: str) -> dict:
     """Family pedigree around a patient, with contact + recontact status."""
-    from unravel.watch import pedigree_patient
+    from relaycare.watch import pedigree_patient
     try:
         return pedigree_patient(patient)
     except Exception as e:
@@ -95,7 +95,7 @@ def pedigree(patient: str) -> dict:
 @app.get("/api/graph")
 def graph(patient: str) -> dict:
     """Knowledge graph: variant <-> evidence sources <-> carriers <-> relatives."""
-    from unravel.watch import graph_patient
+    from relaycare.watch import graph_patient
     try:
         return graph_patient(patient)
     except Exception as e:
@@ -123,7 +123,7 @@ class NewPatient(BaseModel):
 @app.post("/api/patient")
 def add_patient(p: NewPatient) -> dict:
     """Add a patient (and optional variant) to the Firestore registry."""
-    from unravel.registry import add_patient as _add
+    from relaycare.registry import add_patient as _add
     try:
         return _add(**p.model_dump())
     except Exception as e:
@@ -133,7 +133,7 @@ def add_patient(p: NewPatient) -> dict:
 @app.get("/api/freshness")
 def freshness() -> dict:
     """Live evidence-feed freshness via the Fivetran MCP server."""
-    from unravel.fivetran_mcp import check_freshness
+    from relaycare.fivetran_mcp import check_freshness
     try:
         feeds = check_freshness()
         return {"feeds": [{
@@ -150,8 +150,8 @@ def freshness() -> dict:
 @app.post("/api/resync")
 def resync(connection_id: str) -> dict:
     """Trigger a targeted Fivetran re-sync via the MCP write path."""
-    from unravel.fivetran_mcp import trigger_resync
-    from unravel import audit
+    from relaycare.fivetran_mcp import trigger_resync
+    from relaycare import audit
     try:
         res = trigger_resync(connection_id)
         audit.log("fivetran", f"MCP sync_connection → re-sync {connection_id}", tone="ok")
@@ -163,7 +163,7 @@ def resync(connection_id: str) -> dict:
 @app.get("/api/audit")
 def audit_log(limit: int = 100) -> dict:
     """The persistent audit trail (agent verdicts + Fivetran actions), newest first."""
-    from unravel import audit
+    from relaycare import audit
     return {"events": audit.recent(limit)}
 
 
@@ -171,7 +171,7 @@ def audit_log(limit: int = 100) -> dict:
 def approve(patient: str, action: str = "recontact") -> dict:
     """Record a clinician approval of a flagged case (human-in-the-loop), to the
     persistent audit trail."""
-    from unravel import audit
+    from relaycare import audit
     audit.log("approval", f"clinician approved {action} for {patient}", tone="ok", actor="clinician")
     return {"ok": True, "patient": patient, "action": action}
 
@@ -186,8 +186,8 @@ async def assist(q: AssistQuery) -> dict:
     """Read-only, grounded data assistant (Gemini Flash). Answers questions about
     RelayCare's data and architecture from a static knowledge pack plus the compact,
     already-public context snapshot the UI sends. No DB handle, no write tools; the
-    cohort is synthetic. See unravel/assistant.py for the guardrail design."""
-    from unravel.assistant import answer_async
+    cohort is synthetic. See relaycare/assistant.py for the guardrail design."""
+    from relaycare.assistant import answer_async
     try:
         return await answer_async(q.question, q.context)
     except Exception as e:
@@ -197,8 +197,8 @@ async def assist(q: AssistQuery) -> dict:
 @app.post("/api/fivetran/pause")
 def fivetran_pause(connection_id: str, paused: bool) -> dict:
     """Pause or resume a Fivetran connector via the MCP write path (CRUD: update)."""
-    from unravel.fivetran_mcp import set_paused
-    from unravel import audit
+    from relaycare.fivetran_mcp import set_paused
+    from relaycare import audit
     try:
         res = set_paused(connection_id, paused)
         audit.log("fivetran", f"MCP modify_connection → {'paused' if paused else 'resumed'} {connection_id}", tone="ok")
@@ -211,14 +211,14 @@ def fivetran_pause(connection_id: str, paused: bool) -> dict:
 def warehouse() -> dict:
     """The curated AI data plane: the BigQuery view, the Fivetran-synced source
     tables it unifies, and the canonical query the agents run."""
-    from unravel.evidence import warehouse_info
+    from relaycare.evidence import warehouse_info
     return warehouse_info()
 
 
 @app.get("/api/onboard/status")
 def onboard_status() -> dict:
     """Per-gene live-lookup counts + onboarding recommendations."""
-    from unravel.onboarding import onboard_status as _status
+    from relaycare.onboarding import onboard_status as _status
     try:
         return _status()
     except Exception:
@@ -229,8 +229,8 @@ def onboard_status() -> dict:
 def onboard(gene: str) -> dict:
     """Onboard a gene: stage its evidence to GCS, have the agent create a Fivetran
     connector via the MCP (CRUD: create), sync it, and mark the gene onboarded."""
-    from unravel.onboarding import onboard_gene
-    from unravel import audit
+    from relaycare.onboarding import onboard_gene
+    from relaycare import audit
     try:
         res = onboard_gene(gene)
         audit.log("fivetran", f"MCP create_connection → onboarded {res['gene']} to {res['schema']} ({res['connection_id']}), {res['n_variants']} variants", tone="ok", actor="clinician-approved")
@@ -242,7 +242,7 @@ def onboard(gene: str) -> dict:
 @app.get("/api/structural")
 def structural(gene: str, hgvs_p: str | None = None, residue: int | None = None) -> dict:
     """AlphaFold + AlphaMissense structural context for a variant residue."""
-    from unravel.structure import structural_context
+    from relaycare.structure import structural_context
     try:
         sc = structural_context(gene, hgvs_p=hgvs_p, residue=residue, include_heatmap=True)
         return {

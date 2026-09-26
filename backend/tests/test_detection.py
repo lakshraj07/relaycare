@@ -4,8 +4,8 @@ Driven by injected registry data and a fake current-classification map, so no
 Firestore or BigQuery is needed.
 """
 
-from unravel import registry
-from unravel.detection import detect_reclassifications
+from relaycare import registry
+from relaycare.detection import detect_reclassifications
 
 
 def _data():

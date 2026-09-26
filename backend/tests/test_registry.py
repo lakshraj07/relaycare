@@ -1,7 +1,7 @@
 """Tests for the FHIR registry builders and read helpers (no Firestore needed)."""
 
-from unravel import registry
-from unravel.evidence import VariantKey
+from relaycare import registry
+from relaycare.evidence import VariantKey
 
 
 def test_cohort_shape():

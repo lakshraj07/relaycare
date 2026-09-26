@@ -20,10 +20,10 @@ from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
-from unravel.adjudicator import adjudicate  # noqa: E402
-from unravel.detection import detect_reclassifications  # noqa: E402
-from unravel.evidence import build_evidence_ledger  # noqa: E402
-from unravel import fivetran_mcp as ftm  # noqa: E402
+from relaycare.adjudicator import adjudicate  # noqa: E402
+from relaycare.detection import detect_reclassifications  # noqa: E402
+from relaycare.evidence import build_evidence_ledger  # noqa: E402
+from relaycare import fivetran_mcp as ftm  # noqa: E402
 
 CASES = {
     "diane-marchetti": "HERO  (MLH1 c.114C>G, 3-star expert panel)",
