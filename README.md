@@ -67,13 +67,7 @@ npm run dev
 
 Open \`http://localhost:5173\`.
 
-Vite proxies \`/api\` to \`http://localhost:8000\` during local development.
-
-For a separately hosted API, set:
-
-\`\`\`bash
-VITE_API_URL=https://your-api.example.com
-\`\`\`
+The public walkthrough loads its synthetic watchlist from \`frontend/public/demo-cohort.json\`; it does not require a public API or a live BigQuery connection.
 
 ## Run the backend locally
 
@@ -96,14 +90,12 @@ Live agent calls require the model, evidence, and database credentials described
 
 ## Deploy the frontend
 
-The frontend is deployed at [relaycare.vercel.app](https://relaycare.vercel.app).
+The public frontend is deployed at [relaycare.vercel.app](https://relaycare.vercel.app). The watchlist is served from the checked-in demo fixture, so the public site does not depend on a backend API route.
 
 To create another deployment, use \`frontend\` as the Vercel Root Directory:
 
 - Build command: \`npm run build\`
 - Output directory: \`dist\`
-- Optional environment variable: \`VITE_API_URL\`
-
 The Vercel rewrite in \`frontend/vercel.json\` keeps the React Router pages working when a visitor refreshes a nested route.
 
 ## Repository layout
